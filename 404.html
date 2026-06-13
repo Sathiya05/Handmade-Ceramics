@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | KlinCraft</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { bone: '#F5F4F2', sand: '#EBE7E0', ink: '#1A1A1A', char: '#2C2C2C', taupe: '#8A8278', clay: '#B0552F' }
+        }
+      }
+    }
+  </script>
+  <style>
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .bg-bone { background-color: #121212; }
+  </style>
+</head>
+<body class="bg-bone text-ink font-sans h-screen flex flex-col transition-colors duration-300">
+
+
+  <main class="flex-1 flex flex-col items-center justify-center px-6 text-center">
+    
+    <h1 class="font-display text-[120px] md:text-[180px] leading-none text-gray-300 select-none">404</h1>
+    
+    <div class="max-w-md -mt-10 md:-mt-16">
+      <h2 class="font-bold text-3xl md:text-4xl mt-14">Lost in the studio?</h2><br>
+      <p class="text-char/70 dark:text-bone/60 mb-8 leading-relaxed">
+        It seems the piece you’re looking for has been fired and removed from the shelves. Let’s get you back to the main collection.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="index.html" class="px-8 py-4 rounded-full bg-ink text-bone font-bold text-sm hover:bg-clay transition-colors duration-300">
+          Return Home
+        </a>
+        <a href="contact.html" class="px-8 py-4 rounded-full border border-ink/20 hover:border-clay hover:text-clay font-bold text-sm transition-colors duration-300">
+          Report Issue
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="p-8 text-center text-[10px] uppercase tracking-[0.2em] text-taupe">
+    © 2026 KlinCraft Studio. All rights reserved.
+  </footer>
+
+</body>
+</html>

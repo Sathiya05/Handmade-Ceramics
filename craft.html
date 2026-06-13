@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Craft — KlinCraft | Handcrafted Ceramic Dinnerware Studio</title>
+  <meta name="description" content="From raw clay to finished dinnerware — step inside the eleven-day process behind every KlinCraft piece: wedging, throwing, trimming, glazing, and firing.">
+
+  <!-- Swap this for your local tailwind.js if you prefer -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#F5F4F2',
+            sand:   '#EBE7E0',
+            ink:    '#1A1A1A',
+            char:   '#2C2C2C',
+            taupe:  '#8A8278',
+            clay:   '#B0552F',
+            claydeep: '#8F421F',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Karla', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(44,44,44,.20) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(44,44,44,.14) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(44,44,44,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(44,44,44,.12) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px;
+    }
+
+    .img-frame { position: relative; overflow: hidden; background: linear-gradient(135deg, #D8CFC2, #A98B72 60%, #8A8278); }
+    .img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+    .img-hover:hover .img-frame img { transform: scale(1.06); }
+
+    /* Sticky process visual */
+    .process-sticky { position: sticky; top: 6.5rem; }
+    @media (max-width: 1023px) { .process-sticky { position: static; top: auto; } }
+
+    .stage-card { border-left: 3px solid transparent; transition: border-color .3s ease, background .3s ease; }
+    .stage-card.active { border-left-color: #B0552F; background: rgba(176,85,47,.05); }
+    .stage-num { transition: color .3s ease, -webkit-text-stroke .3s ease; }
+    .stage-card.active .stage-num { color: #B0552F; -webkit-text-stroke: 0; }
+
+    /* Temperature gauge */
+    .gauge-fill { transition: height 1.2s cubic-bezier(.2,.8,.2,1); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Comparison table */
+    .vs-row > div:first-child { border-right: 1px solid rgba(26,26,26,.08); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .img-frame img, .gauge-fill, .stage-card, .stage-num { transition: none; }
+    }
+
+    a:focus-visible, button:focus-visible { outline: 2px solid #B0552F; outline-offset: 3px; border-radius: 4px; }
+
+    /* Dark Mode Overrides */
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+    body.dark-mode .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(245,245,242,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(245,245,242,.12) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(245,245,242,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(245,245,242,.10) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px;
+    }
+    body.dark-mode .bg-bone { background-color: #121212; }
+    body.dark-mode .bg-sand { background-color: #1E1E1E; }
+    body.dark-mode .bg-char { background-color: #0D0D0D; }
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char\/70, body.dark-mode .text-char\/75, body.dark-mode .text-char\/80,
+    body.dark-mode .text-char\/65, body.dark-mode .text-char\/60 { color: #B0ABA5; }
+    body.dark-mode .text-taupe { color: #9E9790; }
+    body.dark-mode .border-ink\/20, body.dark-mode .border-ink\/10, body.dark-mode .border-ink\/5 { border-color: rgba(245,245,242,0.15); }
+    body.dark-mode .bg-bone\/90 { background-color: rgba(30,30,30,0.9) !important; }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans overflow-x-hidden">
+
+  <div id="navbar"></div>
+  <script src="navbar.js"></script>
+  <!-- ============================================================ PAGE HERO -->
+<!-- ============================================================ HERO: SPLIT-FRAME CRAFT -->
+<section class="relative min-h-[100dvh] pt-40 md:pt-48 pb-10 flex overflow-hidden bg-bone dark:bg-[#121212] transition-colors duration-300">
+  
+  <div class="w-full md:w-1/2 flex flex-col justify-start md:justify-center px-8 lg:px-20 z-10">
+    <div class="max-w-2xl reveal">
+      <p class="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-clay mb-6 flex items-center gap-4">
+        <span class="inline-block w-10 h-[1px] bg-clay"></span> The Crafting Journey
+      </p>
+      
+      <h1 class="font-display font-medium text-[3rem] sm:text-[4rem] md:text-[3.5rem] lg:text-[6rem] leading-[0.9] tracking-tight mb-8 text-ink dark:text-bone">
+        From a lump<br>
+        of clay to your<br>
+        <span class="italic text-taupe">dinner table.</span>
+      </h1>
+
+      <div class="border-l border-ink/20 dark:border-bone/20 pl-6 lg:pl-8">
+        <p class="text-base md:text-lg lg:text-xl text-char/80 dark:text-bone/70 leading-relaxed max-w-sm">
+          There is no shortcut version of this process. Every piece passes through five distinct stages and at least nine pairs of hands before it leaves our Bengaluru studio.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden md:block md:w-1/2 lg:w-2/5 relative overflow-hidden">
+    <div class="absolute inset-0 bg-ink/10 z-10"></div> 
+    <img src="images/8.avif" 
+         alt="Pottery process" 
+         class="absolute inset-0 w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-[2000ms] ease-in-out">
+    
+    <div class="absolute bottom-10 right-10 z-20 text-bone text-[10px] font-bold uppercase tracking-[0.2em] rotate-[-90deg] origin-bottom-right">
+      Stage 00: The Mud
+    </div>
+  </div>
+
+  <div class="md:hidden absolute inset-0 z-0">
+    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-20">
+  </div>
+
+</section>
+<!-- ============================================================ TOPIC: RAW MATERIAL INTEGRITY -->
+<section class="py-20 bg-sand/50 dark:bg-[#1A1A1A] transition-colors duration-300">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+    
+    <div class="grid lg:grid-cols-3 gap-12 lg:gap-8 reveal">
+      
+      <!-- Intro Column -->
+      <div class="lg:col-span-1">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5 flex items-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> Material Ethics
+        </p>
+        <h2 class="font-display font-medium text-4xl leading-[1.08] tracking-tight mb-6">
+          Earth as it<br>is intended.
+        </h2>
+        <p class="text-char/70 dark:text-bone/70 leading-relaxed">
+          We don't buy pre-mixed clay from a factory. By sourcing raw minerals and mixing our own clay bodies and glazes, we maintain total control over the footprint and performance of every piece.
+        </p>
+      </div>
+
+      <!-- Feature Grid -->
+      <div class="lg:col-span-2 grid md:grid-cols-2 gap-6">
+        
+        <div class="bg-bone dark:bg-[#252525] p-8 rounded-[1.5rem] border border-ink/5 dark:border-none shadow-sm">
+          <div class="w-12 h-12 bg-clay/10 text-clay rounded-full flex items-center justify-center mb-6">
+            <i class="fa-solid fa-mountain-sun"></i>
+          </div>
+          <h3 class="font-display text-xl mb-3">Traceable Minerals</h3>
+          <p class="text-sm text-char/65 dark:text-bone/65 leading-relaxed">
+            Every oxide, feldspar, and silica grain is sourced from suppliers with clear extraction practices. We know exactly where our materials come from.
+          </p>
+        </div>
+
+        <div class="bg-bone dark:bg-[#252525] p-8 rounded-[1.5rem] border border-ink/5 dark:border-none shadow-sm">
+          <div class="w-12 h-12 bg-clay/10 text-clay rounded-full flex items-center justify-center mb-6">
+            <i class="fa-solid fa-flask-vial"></i>
+          </div>
+          <h3 class="font-display text-xl mb-3">Lead-Free Promise</h3>
+          <p class="text-sm text-char/65 dark:text-bone/65 leading-relaxed">
+            The dinnerware we create is designed to hold your food for a lifetime. All our glazes are third-party tested to be 100% food-safe and lead-free.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============================================================ PROCESS SECTION -->
+<section class="py-20 md:py-28 bg-bone transition-colors duration-300">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+
+    <!-- Centered Topic Header -->
+    <div class="text-center mb-16 lg:mb-24 reveal">
+      <p class="text-[10px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center justify-center gap-3">
+        <span class="inline-block w-8 h-[2px] bg-clay"></span> The Studio Methodology
+      </p>
+      <h2 class="font-display font-medium text-4xl md:text-5xl lg:text-6xl tracking-tight">
+        The Six Stages of <span class="italic text-taupe">Creation</span>
+      </h2>
+    </div>
+
+    <!-- Sticky Visual & Scrolling Grid -->
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
+
+      <!-- Sticky visual -->
+      <div class="lg:col-span-5 reveal">
+        <div class="process-sticky sticky top-32">
+          <div class="img-frame rounded-[2rem] aspect-[4/5] lg:aspect-[3/4] mb-6">
+            <img id="stageImg" loading="lazy" src="images\img18.avif"
+                 alt="Potter centering clay on the wheel" onerror="this.style.display='none'"
+                 style="transition: opacity .4s ease;">
+            <span id="stageBadge" class="absolute top-5 left-5 bg-bone/90 backdrop-blur text-ink text-[11px] font-bold uppercase tracking-[0.18em] px-4 py-2 rounded-full">
+              Stage 01 · Day 1
+            </span>
+          </div>
+          <!-- Temperature gauge -->
+          <div class="bg-sand dark:bg-[#1E1E1E] rounded-2xl p-5 flex items-center gap-5">
+            <div class="w-10 h-32 rounded-full bg-bone dark:bg-ink relative overflow-hidden shrink-0 border border-ink/10 dark:border-bone/10">
+              <div id="gaugeFill" class="gauge-fill absolute bottom-0 inset-x-0 bg-clay" style="height: 4%;"></div>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-taupe mb-1">Approx. piece temperature</p>
+              <p id="gaugeTemp" class="font-display text-3xl text-ink dark:text-bone">Room temp</p>
+              <p id="gaugeNote" class="text-xs text-char/60 dark:text-bone/60 mt-1">Soft, wet clay — entirely reworkable.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrolling stages -->
+      <div class="lg:col-span-7 space-y-6 md:space-y-8">
+
+        <article class="stage active reveal stage-card rounded-2xl px-6 py-7 md:px-8 md:py-9"
+                 data-img="images\img11.avif"
+                 data-badge="Stage 01 · Day 1" data-gauge="4" data-temp="Room temp" data-note="Soft, wet clay — entirely reworkable.">
+          <div class="flex items-baseline gap-5 mb-3">
+            <span class="stage-num font-display text-4xl md:text-5xl text-transparent" style="-webkit-text-stroke: 1.5px #8A8278;">01</span>
+            <h2 class="font-display text-2xl md:text-3xl">Wedging — preparing the clay</h2>
+          </div>
+          <p class="text-char/70 dark:text-bone/70 leading-relaxed mb-4">
+            Before anything is shaped, the clay has to be made trustworthy. We knead and slam each block against the wedging table in a spiral motion, forcing out air pockets that would otherwise turn into steam explosions in the kiln.
+          </p>
+          <ul class="text-sm text-char/60 dark:text-bone/60 space-y-1.5">
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Local stoneware clay, sourced from a single supplier for consistency</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Roughly 15 minutes of wedging per kilogram of clay</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Reclaimed trimmings are re-wedged back into this stage</li>
+          </ul>
+        </article>
+
+        <article class="stage reveal stage-card rounded-2xl px-6 py-7 md:px-8 md:py-9"
+                 data-img="images\7.avif"
+                 data-badge="Stage 02 · Day 1–2" data-gauge="6" data-temp="Room temp" data-note="Centred on the wheel — this is where the form is born.">
+          <div class="flex items-baseline gap-5 mb-3">
+            <span class="stage-num font-display text-4xl md:text-5xl text-transparent" style="-webkit-text-stroke: 1.5px #8A8278;">02</span>
+            <h2 class="font-display text-2xl md:text-3xl">Throwing — on the wheel</h2>
+          </div>
+          <p class="text-char/70 dark:text-bone/70 leading-relaxed mb-4">
+            Each piece is centred, opened, and pulled up individually. A maker throwing dinner plates will check rim diameter and wall thickness against the batch master every few pieces — close enough to feel like a set, never identical enough to feel like a mould.
+          </p>
+          <ul class="text-sm text-char/60 dark:text-bone/60 space-y-1.5">
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Wheel speed: 120–180 RPM depending on the form</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> A skilled maker throws 15–20 mugs or 8–10 plates per session</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Pieces dry slowly under plastic to reach "leather-hard"</li>
+          </ul>
+        </article>
+
+        <article class="stage reveal stage-card rounded-2xl px-6 py-7 md:px-8 md:py-9"
+                 data-img="images\9.avif"
+                 data-badge="Stage 03 · Day 3–4" data-gauge="6" data-temp="Room temp" data-note="Leather-hard — firm enough to handle, soft enough to carve.">
+          <div class="flex items-baseline gap-5 mb-3">
+            <span class="stage-num font-display text-4xl md:text-5xl text-transparent" style="-webkit-text-stroke: 1.5px #8A8278;">03</span>
+            <h2 class="font-display text-2xl md:text-3xl">Trimming &amp; stamping</h2>
+          </div>
+          <p class="text-char/70 dark:text-bone/70 leading-relaxed mb-4">
+            Once leather-hard, pieces go back on the wheel upside down to be trimmed — refining the foot, shaving excess weight, and creating the clean ring base every KlinCraft piece stands on. This is also when each piece receives the studio stamp and a scratched batch number.
+          </p>
+          <ul class="text-sm text-char/60 dark:text-bone/60 space-y-1.5">
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Mug handles are pulled by hand and attached at this stage</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> The maker's initials and batch number are stamped into the foot</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Trimmings are collected and returned to the wedging table</li>
+          </ul>
+        </article>
+
+        <article class="stage reveal stage-card rounded-2xl px-6 py-7 md:px-8 md:py-9"
+                 data-img="images\6.avif"
+                 data-badge="Stage 04 · Day 5–6 · Bisque fire" data-gauge="55" data-temp="950°C" data-note="First firing — clay turns from fragile greenware to porous bisque.">
+          <div class="flex items-baseline gap-5 mb-3">
+            <span class="stage-num font-display text-4xl md:text-5xl text-transparent" style="-webkit-text-stroke: 1.5px #8A8278;">04</span>
+            <h2 class="font-display text-2xl md:text-3xl">Bisque firing</h2>
+          </div>
+          <p class="text-char/70 dark:text-bone/70 leading-relaxed mb-4">
+            Fully dried pieces go into the kiln for their first firing, reaching around 950°C over roughly eight hours. This drives out the last of the chemical water in the clay and hardens it into "bisque" — strong enough to handle, but still porous enough to drink in glaze.
+          </p>
+          <ul class="text-sm text-char/60 dark:text-bone/60 space-y-1.5">
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Slow ramp-up prevents cracking from trapped moisture</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Bisque pieces are inspected and lightly sanded smooth</li>
+            <li class="flex gap-2"><i class="fa-solid fa-circle text-[5px] mt-2 text-clay"></i> Any hairline cracks are caught here, before glaze is wasted</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- ============================================================ MATERIALS -->
+  <section class="py-20 md:py-28 bg-sand">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center justify-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> What goes in <span class="inline-block w-8 h-[2px] bg-clay"></span>
+        </p>
+        <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight">
+          Four raw materials.<br>Nothing else.
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="reveal bg-bone rounded-[1.8rem] overflow-hidden img-hover">
+          <div class="img-frame aspect-[4/3]">
+            <img loading="lazy" src="images\img20.webp" alt="Raw stoneware clay block" onerror="this.style.display='none'">
+          </div>
+          <div class="p-6">
+            <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-taupe mb-2">01</p>
+            <h3 class="font-display text-xl mb-2">Stoneware Clay</h3>
+            <p class="text-sm text-char/70 leading-relaxed">Iron-flecked clay from a single quarry, chosen for the speckling it leaves under our lighter glazes.</p>
+          </div>
+        </div>
+
+        <div class="reveal bg-bone rounded-[1.8rem] overflow-hidden img-hover" style="transition-delay:.05s">
+          <div class="img-frame aspect-[4/3]">
+            <img loading="lazy" src="images\img21.avif" alt="Mineral glaze powders in bowls" onerror="this.style.display='none'">
+          </div>
+          <div class="p-6">
+            <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-taupe mb-2">02</p>
+            <h3 class="font-display text-xl mb-2">Feldspar &amp; Silica</h3>
+            <p class="text-sm text-char/70 leading-relaxed">The glassy backbone of every glaze — these melt at high heat to form the smooth, food-safe surface.</p>
+          </div>
+        </div>
+
+        <div class="reveal bg-bone rounded-[1.8rem] overflow-hidden img-hover" style="transition-delay:.1s">
+          <div class="img-frame aspect-[4/3]">
+            <img loading="lazy" src="images\1.avif " alt="Glaze test tiles in various earthy colours" onerror="this.style.display='none'">
+          </div>
+          <div class="p-6">
+            <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-taupe mb-2">03</p>
+            <h3 class="font-display text-xl mb-2">Iron &amp;  Oxides</h3>
+            <p class="text-sm text-char/70 leading-relaxed">A pinch goes a long way — these mineral give our six house glazes their range, from honey to indigo.</p>
+          </div>
+        </div>
+
+        <div class="reveal bg-bone rounded-[1.8rem] overflow-hidden img-hover" style="transition-delay:.15s">
+          <div class="img-frame aspect-[4/3]">
+            <img loading="lazy" src="images\img22.avif" alt="Wood ash collected for glaze making" onerror="this.style.display='none'">
+          </div>
+          <div class="p-6">
+            <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-taupe mb-2">04</p>
+            <h3 class="font-display text-xl mb-2">Wood Ash</h3>
+            <p class="text-sm text-char/70 leading-relaxed">Collected from the warming fires into our Sage almost nothing here goes to fine wastage.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ HANDMADE VS FACTORY -->
+  <section class="py-20 md:py-28 bg-char text-bone relative overflow-hidden">
+    <div class="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-clay/10 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-10 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center justify-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> An honest comparison <span class="inline-block w-8 h-[2px] bg-clay"></span>
+        </p>
+        <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight">
+          Wheel-thrown vs.<br>factory-cast
+        </h2>
+      </div>
+
+      <div class="rounded-[1.8rem] overflow-hidden border border-bone/10 reveal">
+        <!-- Header row -->
+        <div class="vs-row grid grid-cols-2 bg-bone/5">
+          <div class="px-6 md:px-8 py-5 font-display text-lg md:text-xl">KlinCraft — wheel-thrown</div>
+          <div class="px-6 md:px-8 py-5 font-display text-lg md:text-xl text-bone/50">Typical factory-cast</div>
+        </div>
+
+        <div class="vs-row grid grid-cols-2 border-t border-bone/10">
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/85 flex gap-3"><i class="fa-solid fa-check text-clay mt-0.5"></i><span>Each piece individually thrown — natural variation in weight and rim</span></div>
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/50 flex gap-3"><i class="fa-solid fa-equals mt-0.5"></i><span>Slip-cast in moulds — every unit identical</span></div>
+        </div>
+        <div class="vs-row grid grid-cols-2 border-t border-bone/10">
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/85 flex gap-3"><i class="fa-solid fa-check text-clay mt-0.5"></i><span>Glazes mixed in-house from raw minerals</span></div>
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/50 flex gap-3"><i class="fa-solid fa-equals mt-0.5"></i><span>Commercial pre-mixed glazes, sprayed by machine</span></div>
+        </div>
+        <div class="vs-row grid grid-cols-2 border-t border-bone/10">
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/85 flex gap-3"><i class="fa-solid fa-check text-clay mt-0.5"></i><span>Fired in small batches of ~140 pieces, gas kiln</span></div>
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/50 flex gap-3"><i class="fa-solid fa-equals mt-0.5"></i><span>Continuous tunnel kilns running thousands of units</span></div>
+        </div>
+        <div class="vs-row grid grid-cols-2 border-t border-bone/10">
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/85 flex gap-3"><i class="fa-solid fa-check text-clay mt-0.5"></i><span>Trimmings and seconds reclaimed back into production</span></div>
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/50 flex gap-3"><i class="fa-solid fa-equals mt-0.5"></i><span>Defects typically discarded at scale</span></div>
+        </div>
+        <div class="vs-row grid grid-cols-2 border-t border-bone/10">
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/85 flex gap-3"><i class="fa-solid fa-check text-clay mt-0.5"></i><span>~11 days from clay to finished piece</span></div>
+          <div class="px-6 md:px-8 py-5 text-sm text-bone/50 flex gap-3"><i class="fa-solid fa-equals mt-0.5"></i><span>Hours, on an automated line</span></div>
+        </div>
+      </div>
+
+      <p class="text-center text-bone/50 text-sm mt-8 reveal">Both can be food-safe and durable — the difference is in the hands, the time, and the small imperfections that make a piece feel like yours.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ TOOLS OF THE TRADE -->
+  <section class="py-20 md:py-28 bg-bone speckle">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+        <div class="lg:col-span-5 order-2 lg:order-1 reveal">
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span> On the bench
+          </p>
+          <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight mb-6">
+            Most of our tools<br>are older than the studio.
+          </h2>
+          <p class="text-char/75 leading-relaxed max-w-md mb-8">
+            A few essentials, well worn: wooden ribs for shaping curves, wire tools for cutting pieces off the wheel head, sponges for controlling water, and calipers for checking lid and rim fits. Most were bought second-hand from potters who'd retired — we like that they carry their own history into ours.
+          </p>
+          <div class="grid grid-cols-2 gap-4 max-w-sm">
+            <div class="flex items-center gap-3 text-sm font-bold text-ink"><i class="fa-solid fa-ruler-combined text-clay"></i> Calipers</div>
+            <div class="flex items-center gap-3 text-sm font-bold text-ink"><i class="fa-solid fa-water text-clay"></i> Sponges</div>
+            <div class="flex items-center gap-3 text-sm font-bold text-ink"><i class="fa-solid fa-wave-square text-clay"></i> Wire cutters</div>
+            <div class="flex items-center gap-3 text-sm font-bold text-ink"><i class="fa-solid fa-hand text-clay"></i> Wooden ribs</div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 order-1 lg:order-2 reveal" style="transition-delay:.1s">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="img-frame img-hover rounded-[1.6rem] aspect-square">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=700&auto=format&fit=crop" alt="Hand tools laid out on the workbench" onerror="this.style.display='none'">
+            </div>
+            <div class="img-frame img-hover rounded-[1.6rem] aspect-square mt-8">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1525974160448-038dacadcc71?q=80&w=700&auto=format&fit=crop" alt="Wire tool trimming a bowl" onerror="this.style.display='none'">
+            </div>
+            <div class="img-frame img-hover rounded-[1.6rem] aspect-square -mt-8">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=700&auto=format&fit=crop" alt="Calipers measuring a plate rim" onerror="this.style.display='none'">
+            </div>
+            <div class="img-frame img-hover rounded-[1.6rem] aspect-square">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?q=80&w=700&auto=format&fit=crop" alt="Sponge smoothing a rim on the wheel" onerror="this.style.display='none'">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA -->
+  <section class="py-20 md:py-28 bg-bone">
+    <div class="max-w-[1200px] mx-auto px-5 lg:px-10">
+      <div class="reveal relative overflow-hidden rounded-[2.5rem] bg-ink text-bone px-8 py-16 md:p-20 text-center">
+        <div class="absolute inset-0 opacity-[0.06] pointer-events-none"
+             style="background: repeating-radial-gradient(circle at 50% 120%, transparent 0 38px, #F5F4F2 39px 40px);"></div>
+        <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-clay/20 blur-[90px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5">See it in person</p>
+          <h2 class="font-display font-medium text-4xl md:text-6xl leading-[1.05] tracking-tight mb-6">
+            Want to try<br><span class="italic text-taupe">the wheel yourself?</span>
+          </h2>
+          <p class="text-bone/70 leading-relaxed mb-10 max-w-xl mx-auto">
+            Our Saturday workshops walk you through wedging and throwing in a single session. Everything you make is trimmed, glazed, and fired by us — yours to collect two weeks later.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="home2.html#workshops" class="px-9 py-4 rounded-full bg-clay text-bone font-bold text-sm hover:bg-claydeep transition-colors duration-300">Book a Workshop</a>
+            <a href="collections.html" class="px-9 py-4 rounded-full border border-bone/30 text-bone font-bold text-sm hover:border-clay hover:text-clay transition-colors duration-300">Shop Finished Pieces</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="footer.js"></script>
+  <!-- ============================================================ SCRIPTS -->
+  <script>
+    // ----- Sync sticky visual with active stage on scroll -----
+    const stages = Array.from(document.querySelectorAll('.stage'));
+    const stageImg = document.getElementById('stageImg');
+    const stageBadge = document.getElementById('stageBadge');
+    const gaugeFill = document.getElementById('gaugeFill');
+    const gaugeTemp = document.getElementById('gaugeTemp');
+    const gaugeNote = document.getElementById('gaugeNote');
+
+    function setActive(stage) {
+      stages.forEach(s => s.classList.remove('active'));
+      stage.classList.add('active');
+
+      stageImg.style.opacity = 0;
+      setTimeout(() => {
+        stageImg.src = stage.dataset.img;
+        stageImg.style.opacity = 1;
+      }, 180);
+
+      stageBadge.textContent = stage.dataset.badge;
+      gaugeFill.style.height = stage.dataset.gauge + '%';
+      gaugeTemp.textContent = stage.dataset.temp;
+      gaugeNote.textContent = stage.dataset.note;
+    }
+
+    if ('IntersectionObserver' in window) {
+      const stageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActive(entry.target);
+        });
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      stages.forEach(s => stageObserver.observe(s));
+    }
+// Dark Mode Toggle Logic
+function toggleDarkMode() {
+  const body = document.body;
+  body.classList.toggle('dark-mode');
+  
+  // Save preference to localStorage
+  if (body.classList.contains('dark-mode')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
+}
+
+// Check saved preference on load
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark-mode');
+}
+    // ----- Scroll reveal -----
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+  </script>
+</body>
+
+</html>

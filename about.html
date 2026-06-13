@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — KlinCraft | Handcrafted Ceramic Dinnerware Studio</title>
+  <meta name="description" content="The story of KlinCraft — a small-batch ceramic dinnerware studio in Bengaluru. Meet the makers, the kiln, and the ideas we fire by.">
+
+  <!-- Swap this for your local tailwind.js if you prefer -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#F5F4F2',
+            sand:   '#EBE7E0',
+            ink:    '#1A1A1A',
+            char:   '#2C2C2C',
+            taupe:  '#8A8278',
+            clay:   '#B0552F',
+            claydeep: '#8F421F',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Karla', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    /* Speckled stoneware texture */
+    .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(44,44,44,.20) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(44,44,44,.14) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(44,44,44,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(44,44,44,.12) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px;
+    }
+
+    /* Image frames: warm gradient behind every photo so broken links degrade gracefully */
+    .img-frame { position: relative; overflow: hidden; background: linear-gradient(135deg, #D8CFC2, #A98B72 60%, #8A8278); }
+    .img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+    .img-hover:hover .img-frame img { transform: scale(1.06); }
+
+    /* Vertical timeline spine */
+    .spine { background: linear-gradient(to bottom, transparent, #B0552F 8%, #B0552F 92%, transparent); }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Pull-quote oversized mark */
+    .bigquote::before {
+      content: '\201C';
+      font-family: Fraunces, serif;
+      display: block;
+      font-size: 7rem;
+      line-height: .6;
+      color: #B0552F;
+      margin-bottom: 1.2rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .img-frame img { transition: none; }
+    }
+
+    a:focus-visible, button:focus-visible { outline: 2px solid #B0552F; outline-offset: 3px; border-radius: 4px; }
+
+    /* =========================================
+       DARK MODE — Full Page Sections
+       ========================================= */
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+
+    /* Speckle texture for dark mode */
+    body.dark-mode .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(245,245,242,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(245,245,242,.12) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(245,245,242,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(245,245,242,.10) 1px, transparent 1.6px) !important;
+    }
+
+    /* Universal background overrides */
+    body.dark-mode .bg-bone { background-color: #121212 !important; }
+    body.dark-mode .bg-sand { background-color: #1A1A1A !important; }
+
+    /* ========== HERO ========== */
+    body.dark-mode section:first-of-type { background-color: #121212; }
+    body.dark-mode section:first-of-type .text-char\/75 { color: #B0ABA5; }
+    body.dark-mode section:first-of-type .text-taupe { color: #9E9790; }
+
+    /* Hero stat strip */
+    body.dark-mode .divide-ink\/10 { border-color: rgba(245,245,242,0.1); }
+    body.dark-mode .border-y.border-ink\/10,
+    body.dark-mode .border-b.border-ink\/10,
+    body.dark-mode .border-t.border-ink\/10 { border-color: rgba(245,245,242,0.1); }
+
+    /* Hero image overlay card */
+    body.dark-mode section:first-of-type .bg-bone\/90 { background-color: rgba(30,30,30,0.9) !important; }
+    body.dark-mode section:first-of-type .bg-bone\/90 .text-ink { color: #F5F4F2; }
+
+    /* ========== TIMELINE ========== */
+    body.dark-mode .border-sand { border-color: #1A1A1A; }
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char\/70 { color: #B0ABA5; }
+
+    /* ========== FOUNDER ========== */
+    body.dark-mode section:nth-of-type(3) { background-color: #0D0D0D; }
+    body.dark-mode section:nth-of-type(3) .text-taupe { color: #9E9790; }
+
+    /* ========== MAKERS ========== */
+    body.dark-mode section:nth-of-type(4) { background-color: #121212; }
+    body.dark-mode section:nth-of-type(4) .text-char\/70 { color: #B0ABA5; }
+    body.dark-mode section:nth-of-type(4) .text-char\/60 { color: #9E9790; }
+    body.dark-mode section:nth-of-type(4) .text-taupe { color: #9E9790; }
+    body.dark-mode section:nth-of-type(4) .bg-bone\/90 { background-color: rgba(30,30,30,0.9) !important; }
+
+    /* ========== VALUES ========== */
+    body.dark-mode section:nth-of-type(5) { background-color: #1A1A1A; }
+    body.dark-mode section:nth-of-type(5) .text-char\/75 { color: #B0ABA5; }
+    body.dark-mode section:nth-of-type(5) .text-char\/70 { color: #B0ABA5; }
+    body.dark-mode section:nth-of-type(5) .bg-ink { background-color: #2A2A2A; }
+    body.dark-mode section:nth-of-type(5) .bg-ink .text-clay { color: #B0552F; }
+    body.dark-mode .divide-ink\/10 { border-color: rgba(245,245,242,0.1); }
+
+    /* ========== PRESS ========== */
+    body.dark-mode section:nth-of-type(6) { background-color: #121212; }
+    body.dark-mode section:nth-of-type(6) .text-char\/45 { color: rgba(245,245,242,0.35); }
+    body.dark-mode section:nth-of-type(6) .text-taupe { color: #9E9790; }
+
+    /* ========== CTA ========== */
+    body.dark-mode section:nth-of-type(7) { background-color: #121212; }
+
+    /* Universal text overrides */
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char\/75,
+    body.dark-mode .text-char\/70,
+    body.dark-mode .text-char\/60,
+    body.dark-mode .text-char { color: #B0ABA5; }
+    body.dark-mode .text-taupe { color: #9E9790; }
+
+    /* Universal border overrides */
+    body.dark-mode .border-ink\/5 { border-color: rgba(245,245,242,0.05); }
+    body.dark-mode .border-ink\/10,
+    body.dark-mode .border-ink\/15 { border-color: rgba(245,245,242,0.1); }
+    body.dark-mode .bg-char\/\[0\.03\] { background-color: rgba(245,245,242,0.03); }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans overflow-x-hidden">
+
+  <div id="navbar"></div>
+  <script src="navbar.js"></script>
+
+  <!-- ============================================================ HERO (editorial split) -->
+<section class="h-screen min-h-[750px] pt-24 pb-8 md:pt-32 md:pb-12 bg-bone speckle overflow-hidden relative flex flex-col">
+    <div class="max-w-[1400px] mx-auto w-full px-5 lg:px-10 relative z-10 flex flex-col flex-1 h-full">
+
+      <nav aria-label="Breadcrumb" class="mb-6 md:mb-8 reveal shrink-0">
+        <ol class="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-taupe">
+          <li><a href="index.html" class="hover:text-clay transition-colors">Home</a></li>
+          <li aria-hidden="true">·</li>
+          <li class="text-clay">About the studio</li>
+        </ol>
+      </nav>
+
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-12 mb-8 md:mb-10 reveal shrink-0">
+        <h1 class="font-display font-medium text-[3rem] leading-[1.02] sm:text-6xl lg:text-[4.5rem] xl:text-[5rem] tracking-tight max-w-4xl">
+          Built around one kiln<br class="hidden sm:block">
+          and <span class="italic text-taupe">a lot of patience.</span>
+        </h1>
+        <p class="text-base md:text-lg text-char/75 max-w-md leading-relaxed pb-1 lg:pb-3">
+          KlinCraft is a five-person ceramic dinnerware studio in Bengaluru. We make plates, bowls, and mugs the slowest way we know — wedged, thrown, trimmed, glazed, and fired by hand.
+        </p>
+      </div>
+
+      <div class="relative w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden flex-1 min-h-[250px] reveal group shadow-[0_20px_50px_-15px_rgba(26,26,26,.1)]">
+        <img src="images\bg2.avif"
+             alt="A maker shaping a vessel at the potter's wheel in the KlinCraft studio"
+             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+             fetchpriority="high" onerror="this.style.display='none'">
+        
+        <div class="absolute top-5 right-5 md:top-8 md:right-8 bg-bone/90 backdrop-blur-md rounded-2xl px-5 py-3 md:py-4 flex items-center gap-4 transition-transform duration-500 group-hover:-translate-y-1">
+          <span class="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-clay/15 text-clay flex items-center justify-center text-sm md:text-base">
+            <i class="fa-solid fa-location-dot"></i>
+          </span>
+          <p class="text-xs md:text-sm font-bold text-ink leading-snug hidden sm:block">14, Pottery Lane, Indiranagar</p>
+        </div>
+      </div>
+
+      <div class="relative z-20 w-[92%] sm:w-[85%] max-w-5xl mx-auto -mt-10 md:-mt-12 bg-char text-bone rounded-[1.5rem] md:rounded-[2rem] shadow-2xl reveal shrink-0" style="transition-delay: .1s;">
+        <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-bone/10 py-5 md:py-8">
+          
+          <div class="px-4 text-center flex flex-col items-center justify-center">
+            <p class="font-display text-3xl md:text-4xl lg:text-5xl text-clay mb-1">2017</p>
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.16em] text-bone/60 font-bold">Founded</p>
+          </div>
+          
+          <div class="px-4 text-center flex flex-col items-center justify-center">
+            <p class="font-display text-3xl md:text-4xl lg:text-5xl text-clay mb-1">5</p>
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.16em] text-bone/60 font-bold">Makers</p>
+          </div>
+          
+          <div class="px-4 text-center flex flex-col items-center justify-center pt-5 md:pt-0 border-t border-bone/10 md:border-t-0 mt-5 md:mt-0">
+            <p class="font-display text-3xl md:text-4xl lg:text-5xl text-clay mb-1">468</p>
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.16em] text-bone/60 font-bold">Firings logged</p>
+          </div>
+          
+          <div class="px-4 text-center flex flex-col items-center justify-center pt-5 md:pt-0 border-t border-bone/10 md:border-t-0 mt-5 md:mt-0">
+            <p class="font-display text-3xl md:text-4xl lg:text-5xl text-clay mb-1">40t</p>
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.16em] text-bone/60 font-bold">Clay wedged</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+<section class="py-24 md:py-32 bg-bone speckle relative overflow-hidden">
+  
+  <div class="absolute top-20 left-1/2 -translate-x-1/2 text-[15vw] leading-none font-display font-bold text-ink/[0.03] whitespace-nowrap pointer-events-none select-none mix-blend-multiply">
+    PURPOSE
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 relative z-10">
+
+    <div class="text-center mb-16 md:mb-28 reveal">
+      <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center justify-center gap-3">
+        <span class="inline-block w-8 h-[2px] bg-clay"></span> Our Ethos
+      </p>
+      <h2 class="font-display font-medium text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
+        Why we spin <span class="italic text-taupe">the wheel.</span>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center mb-24 md:mb-32 reveal">
+      
+      <div class="order-2 lg:order-1 flex flex-col justify-center text-center lg:text-left">
+        <span class="font-display text-6xl md:text-7xl text-clay/20 mb-4 block">01</span>
+        <h3 class="font-display text-3xl md:text-4xl lg:text-5xl text-ink mb-6">The Mission</h3>
+        <p class="font-display text-xl md:text-2xl leading-[1.4] text-char mb-6 max-w-lg mx-auto lg:mx-0">
+          To craft stoneware that anchors the daily ritual of eating.
+        </p>
+        <p class="text-base md:text-lg text-char/70 leading-relaxed max-w-xl mx-auto lg:mx-0">
+          We reject the fragility of fine china and the soullessness of factory ceramics. Our mission is to make plates, bowls, and mugs that are meant to be used, stacked, scraped, and washed—durable companions designed for real, messy, beautiful life.
+        </p>
+      </div>
+
+      <div class="order-1 lg:order-2 relative flex justify-center lg:justify-end">
+        <div class="blob-a overflow-hidden w-[300px] h-[340px] sm:w-[400px] sm:h-[450px] lg:w-[480px] lg:h-[540px] shadow-[0_30px_60px_-20px_rgba(26,26,26,.15)] group relative">
+          <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=900&auto=format&fit=crop"
+               alt="Hands covered in clay shaping a bowl"
+               class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+          <div class="absolute inset-4 rounded-full border border-bone/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+        </div>
+       
+      </div>
+
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center reveal" style="transition-delay: .1s;">
+      
+      <div class="relative flex justify-center lg:justify-start">
+        <div class="blob-b overflow-hidden w-[300px] h-[340px] sm:w-[400px] sm:h-[450px] lg:w-[480px] lg:h-[540px] shadow-[0_30px_60px_-20px_rgba(26,26,26,.15)] group relative">
+          <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=900&auto=format&fit=crop"
+               alt="Stacked rustic ceramic bowls"
+               class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+          <div class="absolute inset-4 rounded-full border border-bone/30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-center text-center lg:text-left">
+        <span class="font-display text-6xl md:text-7xl text-clay/20 mb-4 block">02</span>
+        <h3 class="font-display text-3xl md:text-4xl lg:text-5xl text-ink mb-6">The Vision</h3>
+        <p class="font-display text-xl md:text-2xl leading-[1.4] text-char mb-6 max-w-lg mx-auto lg:mx-0">
+          A dining table entirely free of mass production.
+        </p>
+        <p class="text-base md:text-lg text-char/70 leading-relaxed max-w-xl mx-auto lg:mx-0">
+          We envision a return to intentional consumption, where homes and restaurants serve meals on vessels that hold the thumbprints of their makers. We want to prove that small-batch, human-scale craftsmanship can still thrive in a world obsessed with speed.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+  <!-- ============================================================ ORIGIN TIMELINE -->
+  <section class="py-20 md:py-28 bg-sand overflow-hidden">
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-10">
+      <div class="max-w-2xl mb-16 reveal">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> How we got here
+        </p>
+        <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight">
+          Nine years,<br>told in five firings.
+        </h2>
+      </div>
+
+      <div class="relative">
+        <!-- spine -->
+        <div class="spine absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px]"></div>
+
+        <div class="space-y-14 md:space-y-20">
+
+          <!-- 2017 -->
+          <div class="relative grid md:grid-cols-2 gap-6 md:gap-16 items-center reveal">
+            <span class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-clay border-4 border-sand"></span>
+            <div class="pl-14 md:pl-0 md:text-right md:pr-10">
+              <p class="font-display text-3xl text-clay mb-2">2017</p>
+              <h3 class="font-bold text-lg text-ink mb-2">One second-hand wheel</h3>
+              <p class="text-sm text-char/70 leading-relaxed">Meera Nair quits a design job, buys a wobbling Shimpo wheel off a retiring potter, and starts throwing in her parents' garage. First sale: six uneven chai cups to a neighbour.</p>
+            </div>
+            <div class="pl-14 md:pl-10">
+              <div class="img-frame img-hover rounded-[1.6rem] aspect-[3/2] max-w-sm">
+                 <img loading="lazy" src="https://images.unsplash.com/photo-1678340933816-1bacc2df6bec?q=80&w=800&auto=format&fit=crop"
+                     alt="Vintage potter's wheel in a rustic workshop" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2019 -->
+          <div class="relative grid md:grid-cols-2 gap-6 md:gap-16 items-center reveal">
+            <span class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-clay border-4 border-sand"></span>
+            <div class="pl-14 md:pl-10 md:order-2">
+              <p class="font-display text-3xl text-clay mb-2">2019</p>
+              <h3 class="font-bold text-lg text-ink mb-2">Our own kiln, finally</h3>
+              <p class="text-sm text-char/70 leading-relaxed">After two years of renting kiln space across town, we install our own 60-cubic-foot gas kiln. Firing No. 001 is logged in a notebook we still keep on the shelf.</p>
+            </div>
+            <div class="pl-14 md:pl-0 md:pr-10 md:order-1 md:flex md:justify-end">
+              <div class="img-frame img-hover rounded-[1.6rem] aspect-[3/2] max-w-sm w-full">
+                 <img loading="lazy" src="https://images.unsplash.com/photo-1532567688735-1c60119c6537?q=80&w=800&auto=format&fit=crop"
+                     alt="Gas kiln firing with flames visible through the peep hole" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2021 -->
+          <div class="relative grid md:grid-cols-2 gap-6 md:gap-16 items-center reveal">
+            <span class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-clay border-4 border-sand"></span>
+            <div class="pl-14 md:pl-0 md:text-right md:pr-10">
+              <p class="font-display text-3xl text-clay mb-2">2021</p>
+              <h3 class="font-bold text-lg text-ink mb-2">Pottery Lane</h3>
+              <p class="text-sm text-char/70 leading-relaxed">We move into the Indiranagar studio — three wheels, a glaze corner, and a wall of drying shelves. Two makers become four, and Saturday workshops begin.</p>
+            </div>
+            <div class="pl-14 md:pl-10">
+              <div class="img-frame img-hover rounded-[1.6rem] aspect-[3/2] max-w-sm">
+                 <img loading="lazy" src="https://images.unsplash.com/photo-1776972334890-018cb3b3e3c6?q=80&w=800&auto=format&fit=crop"
+                     alt="Pottery studio interior with shelves full of ceramic work" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2024 -->
+          <div class="relative grid md:grid-cols-2 gap-6 md:gap-16 items-center reveal">
+            <span class="absolute left-5 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-clay border-4 border-sand"></span>
+            <div class="pl-14 md:pl-10 md:order-2">
+              <p class="font-display text-3xl text-clay mb-2">2024</p>
+              <h3 class="font-bold text-lg text-ink mb-2">Restaurants come knocking</h3>
+              <p class="text-sm text-char/70 leading-relaxed">Terra Kitchen commissions a 240-piece tasting-menu line. Word travels through chef circles; today 28 restaurants across India plate on KlinCraft stoneware.</p>
+            </div>
+            <div class="pl-14 md:pl-0 md:pr-10 md:order-1 md:flex md:justify-end">
+              <div class="img-frame img-hover rounded-[1.6rem] aspect-[3/2] max-w-sm w-full">
+                 <img loading="lazy" src="https://images.unsplash.com/photo-1775152935644-317fc6d3bb71?q=80&w=800&auto=format&fit=crop"
+                     alt="Restaurant table set with handmade artisan ceramic plates" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2026 -->
+          <div class="relative grid md:grid-cols-2 gap-6 md:gap-16 items-center reveal">
+            <span class="absolute left-5 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-ink border-4 border-clay"></span>
+            <div class="pl-14 md:pl-0 md:text-right md:pr-10">
+              <p class="font-display text-3xl text-clay mb-2">Today</p>
+              <h3 class="font-bold text-lg text-ink mb-2">Batch No. 015 is in the kiln</h3>
+              <p class="text-sm text-char/70 leading-relaxed">Five makers, one kiln, 52 firings a year — and still small enough that every piece passes through human hands at least nine times before it reaches your table.</p>
+            </div>
+            <div class="pl-14 md:pl-10">
+              <div class="img-frame img-hover rounded-[1.6rem] aspect-[3/2] max-w-sm">
+                 <img loading="lazy" src="https://images.unsplash.com/photo-1610829151215-112a99628f6f?q=80&w=800&auto=format&fit=crop"
+                     alt="Stack of freshly fired ceramic plates in warm studio light" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ FOUNDER PULL-QUOTE -->
+  <section class="py-20 md:py-28 bg-char text-bone relative overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full bg-clay/10 blur-[120px] pointer-events-none"></div>
+    <div class="max-w-[1100px] mx-auto px-5 lg:px-10 relative z-10">
+      <div class="grid md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-4 reveal">
+          <div class="img-frame img-hover rounded-[2rem] aspect-[3/4] max-w-xs mx-auto md:mx-0">
+            <img loading="lazy" src="images\img12.avif"
+                 alt="Portrait of the founder holding a freshly glazed plate" onerror="this.style.display='none'">
+          </div>
+        </div>
+        <div class="md:col-span-8 reveal">
+          <blockquote class="bigquote font-display text-2xl md:text-4xl leading-snug md:leading-snug font-light">
+            A factory can make a thousand identical plates before lunch. It took me a year to make six that I liked. I've stopped seeing that as a disadvantage.
+          </blockquote>
+          <p class="mt-8 flex items-center gap-4">
+            <span class="inline-block w-10 h-[2px] bg-clay"></span>
+            <span>
+              <span class="block font-bold">Meera Nair</span>
+              <span class="block text-xs uppercase tracking-[0.18em] text-taupe font-bold mt-1">Founder & lead thrower</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ STUDIO PROCESS -->
+<section class="py-20 md:py-28 bg-bone relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(176,85,47,0.04),transparent_60%)] pointer-events-none"></div>
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10 relative z-10">
+      
+      <div class="max-w-2xl mb-16 reveal">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> From clay to kiln
+        </p>
+        <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight">
+          Every plate passes through<br class="hidden sm:block"> these five stations.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 md:gap-6">
+
+        <div class="group relative reveal overflow-hidden rounded-[2rem] bg-sand/60 border border-ink/5 p-6 md:p-8 flex flex-col hover:bg-clay/5 hover:border-clay/20 transition-all duration-500">
+          <span class="font-display text-[5rem] md:text-[7rem] leading-none text-ink/[0.04] absolute -top-3 -right-2 select-none pointer-events-none">01</span>
+          <div class="img-frame rounded-[1.2rem] aspect-[4/3] mb-5 shrink-0">
+            <img loading="lazy" src="images\img20.webp"
+                 alt="Hands wedging clay on a plaster slab" onerror="this.style.display='none'">
+          </div>
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-clay/15 text-clay font-display font-bold text-xs mb-3 shrink-0">01</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Wedging</h3>
+        </div>
+
+        <div class="group relative reveal overflow-hidden rounded-[2rem] bg-sand/60 border border-ink/5 p-6 md:p-8 flex flex-col hover:bg-clay/5 hover:border-clay/20 transition-all duration-500" style="transition-delay:.06s">
+          <span class="font-display text-[5rem] md:text-[7rem] leading-none text-ink/[0.04] absolute -top-3 -right-2 select-none pointer-events-none">02</span>
+          <div class="img-frame rounded-[1.2rem] aspect-[4/3] mb-5 shrink-0">
+            <img loading="lazy" src="images\img21.avif"
+                 alt="Hands shaping clay on a potter's wheel" onerror="this.style.display='none'">
+          </div>
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-clay/15 text-clay font-display font-bold text-xs mb-3 shrink-0">02</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Throwing</h3>
+        </div>
+
+        <div class="group relative reveal overflow-hidden rounded-[2rem] bg-sand/60 border border-ink/5 p-6 md:p-8 flex flex-col hover:bg-clay/5 hover:border-clay/20 transition-all duration-500" style="transition-delay:.12s">
+          <span class="font-display text-[5rem] md:text-[7rem] leading-none text-ink/[0.04] absolute -top-3 -right-2 select-none pointer-events-none">03</span>
+          <div class="img-frame rounded-[1.2rem] aspect-[4/3] mb-5 shrink-0">
+            <img loading="lazy" src="images\img22.avif"
+                 alt="Trimming leather-hard pottery on a banding wheel" onerror="this.style.display='none'">
+          </div>
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-clay/15 text-clay font-display font-bold text-xs mb-3 shrink-0">03</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Trimming</h3>
+        </div>
+
+        <div class="group relative reveal overflow-hidden rounded-[2rem] bg-sand/60 border border-ink/5 p-6 md:p-8 flex flex-col hover:bg-clay/5 hover:border-clay/20 transition-all duration-500" style="transition-delay:.18s">
+          <span class="font-display text-[5rem] md:text-[7rem] leading-none text-ink/[0.04] absolute -top-3 -right-2 select-none pointer-events-none">04</span>
+          <div class="img-frame rounded-[1.2rem] aspect-[4/3] mb-5 shrink-0">
+            <img loading="lazy" src="images\1.avif"
+                 alt="Dipping bisqueware into a bucket of glaze" onerror="this.style.display='none'">
+          </div>
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-clay/15 text-clay font-display font-bold text-xs mb-3 shrink-0">04</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Glazing</h3>
+        </div>
+
+        <div class="group relative reveal overflow-hidden rounded-[2rem] bg-char/[0.03] border border-ink/5 p-6 md:p-8 flex flex-col hover:bg-clay/5 hover:border-clay/20 transition-all duration-500" style="transition-delay:.24s">
+          <span class="font-display text-[5rem] md:text-[7rem] leading-none text-ink/[0.04] absolute -top-3 -right-2 select-none pointer-events-none">05</span>
+          <div class="img-frame rounded-[1.2rem] aspect-[4/3] mb-5 shrink-0">
+            <img loading="lazy" src="images\img24.avif"
+                 alt="Kiln shelves loaded with glazed pottery ready for firing" onerror="this.style.display='none'">
+          </div>
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-clay text-bone font-display font-bold text-xs mb-3 shrink-0">05</span>
+          <h3 class="font-bold text-lg text-ink mb-2">Firing</h3>
+        </div>
+
+      </div>
+
+      <div class="mt-14 text-center reveal">
+        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-char text-bone text-sm">
+          <i class="fa-regular fa-clock text-clay"></i>
+          <span class="font-medium">Nine days, five makers, one kiln — start to finish.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ THINGS WE REFUSE TO DO -->
+  <section class="py-20 md:py-28 bg-sand">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12">
+
+        <div class="md:col-span-5 lg:col-span-5 reveal">
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span> Our values, stated backwards
+          </p>
+          <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight mb-6">
+            Things we<br><span class="italic text-taupe">refuse</span> to do.
+          </h2>
+          <p class="text-char/75 leading-relaxed max-w-md">
+            Most studios list what they believe in. We find it more honest to list what we've turned down — because every "no" below has cost us money at some point, and we'd say it again.
+          </p>
+          <div class="img-frame img-hover rounded-[1.8rem] aspect-[4/3] max-w-md mt-10">
+             <img loading="lazy" src="images\img20.webp"
+                 alt="A dinner table set with handmade ceramic dinnerware" onerror="this.style.display='none'">
+          </div>
+        </div>
+
+        <div class="md:col-span-7 lg:col-span-7 flex flex-col justify-center divide-y divide-ink/10">
+
+          <div class="reveal py-7 flex gap-6">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-ink text-clay flex items-center justify-center text-lg"><i class="fa-solid fa-ban"></i></span>
+            <div>
+              <h3 class="font-bold text-lg text-ink mb-1.5">No slip-cast moulds</h3>
+              <p class="text-sm text-char/70 leading-relaxed">Moulds would triple our output overnight. They'd also make every piece a copy. Each form is thrown individually on the wheel — it's the whole point.</p>
+            </div>
+          </div>
+
+          <div class="reveal py-7 flex gap-6" style="transition-delay:.05s">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-ink text-clay flex items-center justify-center text-lg"><i class="fa-solid fa-ban"></i></span>
+            <div>
+              <h3 class="font-bold text-lg text-ink mb-1.5">No mystery glazes</h3>
+              <p class="text-sm text-char/70 leading-relaxed">Every glaze is mixed in-house from raw minerals and tested for food safety. We publish the full material list for each — ask and we'll send it.</p>
+            </div>
+          </div>
+
+          <div class="reveal py-7 flex gap-6" style="transition-delay:.1s">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-ink text-clay flex items-center justify-center text-lg"><i class="fa-solid fa-ban"></i></span>
+            <div>
+              <h3 class="font-bold text-lg text-ink mb-1.5">No landfill clay</h3>
+              <p class="text-sm text-char/70 leading-relaxed">Trimmings go back to the wedging table; cracked greenware is reclaimed; glaze-fired seconds are sold at the studio, never binned.</p>
+            </div>
+          </div>
+
+          <div class="reveal py-7 flex gap-6" style="transition-delay:.15s">
+            <span class="w-12 h-12 shrink-0 rounded-full bg-ink text-clay flex items-center justify-center text-lg"><i class="fa-solid fa-ban"></i></span>
+            <div>
+              <h3 class="font-bold text-lg text-ink mb-1.5">No order we can't fire ourselves</h3>
+              <p class="text-sm text-char/70 leading-relaxed">We've declined orders that would force us to outsource production. If it doesn't pass through this kiln, it doesn't carry the KlinCraft stamp.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ PRESS STRIP -->
+  <section class="py-12 bg-bone border-y border-ink/10">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10 flex flex-col lg:flex-row items-center gap-8 justify-between">
+      <p class="text-xs font-bold uppercase tracking-[0.22em] text-taupe whitespace-nowrap">As featured in</p>
+      <div class="flex flex-wrap justify-center lg:justify-end items-center gap-x-12 gap-y-4 font-display text-xl md:text-2xl text-char/45">
+        <span class="text-clay/40">✦</span>
+        <span> Nast Traveller</span>
+        <span class="text-clay/40">✦</span>
+        <span> Hindu Weekend</span>
+        <span class="text-clay/40">✦</span>
+        <span>Homegrown</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA -->
+  <section class="py-20 md:py-28 bg-bone">
+    <div class="max-w-[1200px] mx-auto px-5 lg:px-10">
+      <div class="reveal relative overflow-hidden rounded-[2.5rem] bg-char text-bone">
+        <div class="grid md:grid-cols-2 items-stretch">
+          <div class="img-frame min-h-[260px] md:min-h-0">
+            <img loading="lazy" src="images\img14.avif"
+                 alt="Visitors trying the potter's wheel during an open studio day" onerror="this.style.display='none'">
+          </div>
+          <div class="p-10 md:p-14 flex flex-col justify-center">
+            <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5">Open studio · First Saturdays</p>
+            <h2 class="font-display font-medium text-3xl md:text-5xl leading-[1.08] tracking-tight mb-6">
+              The best way to know us is to <span class="italic text-taupe">show up.</span>
+            </h2>
+            <p class="text-bone/70 leading-relaxed mb-9 max-w-md">
+              Watch a kiln unload, touch the throwing rings, dig through the seconds shelf. Chai's on us; clay under your fingernails is optional but likely.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="contact.html" class="px-8 py-4 rounded-full bg-clay text-bone font-bold text-sm text-center hover:bg-claydeep transition-colors duration-300">Plan Your Visit</a>
+              <a href="home2.html#workshops" class="px-8 py-4 rounded-full border border-bone/30 text-bone font-bold text-sm text-center hover:border-clay hover:text-clay transition-colors duration-300">See Workshops</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="footer.js"></script>
+
+  <!-- ============================================================ SCRIPTS -->
+  <script>
+    // Scroll reveal
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — KlinCraft Studio</title>
+  <meta name="description" content="A visual archive of our Bengaluru studio, our makers, and the handcrafted ceramics we fire at 1280°C.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#F5F4F2',
+            sand:   '#EBE7E0',
+            ink:    '#1A1A1A',
+            char:   '#2C2C2C',
+            taupe:  '#8A8278',
+            clay:   '#B0552F',
+            claydeep: '#8F421F',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Karla', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    /* Speckled stoneware texture[cite: 2] */
+    .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(44,44,44,.22) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(44,44,44,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(44,44,44,.20) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(44,44,44,.14) 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 46%, rgba(44,44,44,.18) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px, 48px 48px;
+    }
+
+    /* Scroll reveal[cite: 2] */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Image Hover FX */
+    .gallery-img { transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease; }
+    .group:hover .gallery-img { transform: scale(1.05); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .gallery-img { transition: none; transform: none !important; }
+    }
+
+    /* Dark Mode Overrides[cite: 2] */
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+    body.dark-mode .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(245,245,242,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(245,245,242,.12) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(245,245,242,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(245,245,242,.10) 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 46%, rgba(245,245,242,.14) 1px, transparent 1.6px) !important;
+    }
+    body.dark-mode .bg-bone { background-color: #121212; }
+    body.dark-mode .bg-sand { background-color: #1E1E1E; }
+    body.dark-mode .bg-ink { background-color: #F5F4F2; color: #1A1A1A; }
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char\/70, body.dark-mode .text-char\/75 { color: #B0ABA5; }
+    body.dark-mode .border-ink\/10 { border-color: rgba(245,245,242,0.15); }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans overflow-x-hidden transition-colors duration-300">
+
+  <div id="navbar"></div>
+  <script src="navbar.js"></script>
+  <!-- ============================================================ HERO: SCATTERED COLLAGE -->
+<!-- ============================================================ HERO: SCATTERED COLLAGE -->
+<section class="relative min-h-[100dvh] pt-32 pb-16 lg:pt-40 lg:pb-20 flex flex-col justify-center overflow-hidden speckle bg-bone transition-colors duration-300">
+  
+  <!-- Editorial Watermark -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[22vw] md:text-[20vw] leading-none font-display font-bold text-ink/[0.03] dark:text-bone/[0.03] select-none pointer-events-none whitespace-nowrap z-0">
+    ARCHIVE
+  </div>
+
+  <div class="max-w-[1500px] mx-auto px-5 lg:px-10 relative z-10 w-full flex flex-col items-center justify-center text-center">
+    
+    <div class="reveal z-20 mb-10 lg:mb-12">
+      <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 md:mb-5 flex items-center justify-center gap-3">
+        <span class="inline-block w-6 md:w-8 h-[2px] bg-clay"></span> A Visual Record
+      </p>
+      <h1 class="font-display font-medium text-[2.75rem] sm:text-[4.5rem] lg:text-[6rem] xl:text-[7rem] leading-[1] lg:leading-[0.95] tracking-tight">
+        The KlinCraft<br>
+        <span class="italic text-taupe">Gallery Archive.</span>
+      </h1>
+    </div>
+
+    <!-- Single Centered Feature Image -->
+    <div class="relative w-full max-w-5xl h-[35vh] min-h-[300px] lg:min-h-[450px] max-h-[600px] mx-auto mt-4 rounded-[1.5rem] lg:rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(26,26,26,.25)] dark:shadow-none z-20 reveal group" style="transition-delay: 0.15s;">
+      <img src="images\img17.avif" 
+           alt="Pottery studio archive" 
+           class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+    </div>
+
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce flex flex-col items-center gap-2 text-taupe/70 dark:text-bone/50 z-20">
+    <i class="fa-solid fa-arrow-down text-sm"></i>
+  </div>
+</section>
+
+  <!-- ============================================================ GALLERY: MASONRY (Life in the Studio) -->
+  <section class="py-24 lg:py-32 bg-sand dark:bg-[#1E1E1E]">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      
+      <div class="mb-16 lg:mb-20 reveal">
+        <h2 class="font-display font-medium text-4xl lg:text-5xl tracking-tight mb-4">Life in the Studio</h2>
+        <p class="text-char/70 dark:text-bone/70 max-w-xl text-lg">Our Bengaluru studio[cite: 2] is a space of constant motion. Wedging, throwing, trimming, and firing at 1280°C[cite: 2].</p>
+      </div>
+
+      <!-- CSS Columns for Masonry Layout -->
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 lg:gap-8 space-y-6 lg:space-y-8">
+        
+        <!-- Masonry Item 1 (Tall) -->
+        <div class="break-inside-avoid reveal group">
+          <div class="rounded-[2rem] overflow-hidden shadow-md">
+            <img src="images\The Drying Racks.avif" alt="Studio shelves" class="w-full h-auto object-cover gallery-img">
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-taupe mt-4 pl-2">01 / The Drying Racks</p>
+        </div>
+
+        <!-- Masonry Item 2 (Square) -->
+        <div class="break-inside-avoid reveal group" style="transition-delay: 0.1s;">
+          <div class="rounded-[2rem] overflow-hidden shadow-md">
+            <img src="images\Charcoal Matte Testing.webp" alt="Coffee in a Charcoal Matte mug" class="w-full h-auto object-cover gallery-img aspect-square">
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-taupe mt-4 pl-2">02 / Charcoal Matte Testing</p>
+        </div>
+
+        <!-- Masonry Item 3 (Wide) -->
+        <div class="break-inside-avoid reveal group" style="transition-delay: 0.2s;">
+          <div class="rounded-[2rem] overflow-hidden shadow-md">
+            <img src="images\Pre-Bisque Firing.webp" alt="Unfired pieces" class="w-full h-auto object-cover gallery-img aspect-[4/3]">
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-taupe mt-4 pl-2">03 / Pre-Bisque Firing</p>
+        </div>
+
+        <!-- Masonry Item 4 (Tall) -->
+        <div class="break-inside-avoid reveal group">
+          <div class="rounded-[2rem] overflow-hidden shadow-md">
+            <img src="images\Honey Amber Detail.avif" alt="Honey Amber cups" class="w-full h-auto object-cover gallery-img aspect-[3/4]">
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-taupe mt-4 pl-2">04 / Honey Amber Detail[cite: 2]</p>
+        </div>
+
+        <!-- Masonry Item 5 (Square) -->
+        <div class="break-inside-avoid reveal group" style="transition-delay: 0.1s;">
+          <div class="rounded-[2rem] overflow-hidden shadow-md">
+            <img src="images\Pulled Handles.avif" alt="Sage Ash mug" class="w-full h-auto object-cover gallery-img aspect-square">
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-taupe mt-4 pl-2">05 / Pulled Handles</p>
+        </div>
+
+        <!-- Masonry Item 6 (Tall) -->
+        <div class="break-inside-avoid reveal group" style="transition-delay: 0.2s;">
+          <div class="rounded-[2rem] overflow-hidden shadow-md">
+            <img src="images\Stacked & Ready.avif" alt="Stacked plates" class="w-full h-auto object-cover gallery-img aspect-[3/4]">
+          </div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-taupe mt-4 pl-2">06 / Stacked & Ready</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ GALLERY: BENTO BOX (The Details) -->
+  <section class="py-24 lg:py-32 bg-bone border-y border-ink/10 dark:border-bone/10">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 lg:mb-20 reveal">
+        <p class="text-[11px] font-bold uppercase tracking-[0.28em] text-clay mb-4">Texture & Tone</p>
+        <h2 class="font-display font-medium text-4xl lg:text-5xl tracking-tight">The Glaze Archive</h2>
+      </div>
+
+      <!-- CSS Grid Bento Box -->
+      <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 lg:gap-6 h-auto md:h-[700px]">
+        
+        <!-- Large Hero Box (Spans 2 cols, 2 rows) -->
+        <div class="md:col-span-2 md:row-span-2 rounded-[2.5rem] overflow-hidden relative group reveal">
+          <img src="images\11.avif" alt="Bone Speckle platter detail" class="absolute inset-0 w-full h-full object-cover gallery-img">
+          <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent opacity-80"></div>
+          <div class="absolute bottom-0 left-0 p-8 lg:p-12 z-10">
+            <p class="text-bone text-[11px] font-bold uppercase tracking-widest mb-2">Signature</p>
+            <h3 class="font-display text-3xl lg:text-4xl text-bone">Bone Speckle[cite: 2]</h3>
+          </div>
+        </div>
+
+        <!-- Top Right Small Box -->
+        <div class="rounded-[2rem] overflow-hidden relative group reveal" style="transition-delay: 0.1s;">
+          <img src="images\img20.webp" alt="Iron Clay bowl detail" class="absolute inset-0 w-full h-full object-cover gallery-img">
+          <div class="absolute inset-0 bg-ink/20 group-hover:bg-transparent transition-colors duration-500"></div>
+          <div class="absolute bottom-6 left-6 z-10">
+            <h3 class="font-display text-xl text-bone drop-shadow-md">Iron Clay[cite: 2]</h3>
+          </div>
+        </div>
+
+        <!-- Bottom Right Small Box -->
+        <div class="rounded-[2rem] overflow-hidden relative group reveal" style="transition-delay: 0.2s;">
+          <img src="images\img14.avif" alt="Indigo Pool bowl detail" class="absolute inset-0 w-full h-full object-cover gallery-img">
+          <div class="absolute inset-0 bg-ink/20 group-hover:bg-transparent transition-colors duration-500"></div>
+          <div class="absolute bottom-6 left-6 z-10">
+            <h3 class="font-display text-xl text-bone drop-shadow-md">Indigo Pool[cite: 2]</h3>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ GALLERY: PARALLAX FEATURE -->
+  <section class="relative py-32 lg:py-48 bg-ink text-bone overflow-hidden flex items-center justify-center text-center">
+    <!-- Background Image with Dark Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img src="images\img1.webp" alt="Chef plating on KlinCraft dinnerware" class="w-full h-full object-cover opacity-40 mix-blend-luminosity">
+      <div class="absolute inset-0 bg-gradient-to-b from-ink via-transparent to-ink"></div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-5 reveal">
+      <i class="fa-solid fa-utensils text-3xl text-clay mb-8"></i>
+      <h2 class="font-display font-medium text-4xl lg:text-6xl tracking-tight mb-6 leading-tight">
+        Trusted by 28 restaurant partners across the country.[cite: 2]
+      </h2>
+      <p class="text-bone/70 text-lg">Custom tableware lines crafted for professional kitchens.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA SECTION -->
+  <section class="py-24 lg:py-32 bg-bone speckle">
+    <div class="max-w-[1000px] mx-auto px-5 text-center reveal">
+      <div class="w-20 h-20 mx-auto rounded-full bg-clay text-bone flex items-center justify-center text-2xl mb-8 shadow-xl">
+        <i class="fa-solid fa-leaf"></i>
+      </div>
+      <h2 class="font-display font-medium text-5xl lg:text-6xl tracking-tight mb-6">Bring it to your table.</h2>
+      <p class="text-char/70 dark:text-bone/70 text-lg lg:text-xl max-w-2xl mx-auto mb-10">Every plate, bowl, and mug is designed to outlast trends and handle daily life. Explore the pieces currently sitting on our studio shelves.</p>
+      
+      <a href="shop.html" class="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-ink text-bone dark:bg-bone dark:text-ink font-bold hover:bg-clay dark:hover:bg-clay dark:hover:text-bone transition-colors duration-300 shadow-lg">
+        Shop the Collection <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="footer.js"></script>
+  <!-- ============================================================ SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll reveal logic[cite: 2]
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { 
+              e.target.classList.add('in'); 
+              io.unobserve(e.target); 
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      }
+    });
+  </script>
+
+</body>
+</html>

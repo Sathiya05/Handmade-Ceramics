@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — KlinCraft | Handcrafted Ceramic Dinnerware Studio</title>
+  <meta name="description" content="Shop hand-thrown stoneware plates, bowls, mugs, and serving ware. Filter by category, glaze, and price — small weekly batches, made in Bengaluru.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#F5F4F2',
+            sand:   '#EBE7E0',
+            ink:    '#1A1A1A',
+            char:   '#2C2C2C',
+            taupe:  '#8A8278',
+            clay:   '#B0552F',
+            claydeep: '#8F421F',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Karla', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(44,44,44,.20) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(44,44,44,.14) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(44,44,44,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(44,44,44,.12) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px;
+    }
+
+    .img-frame { position: relative; overflow: hidden; background: linear-gradient(135deg, #D8CFC2, #A98B72 60%, #8A8278); }
+    .img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+    .img-hover:hover .img-frame img { transform: scale(1.06); }
+
+    /* Product grid item fade for filtering */
+    .product { transition: opacity .4s ease, transform .4s ease; }
+    .product.hide { display: none; }
+
+    /* Custom checkbox */
+    .ck { appearance: none; width: 18px; height: 18px; border: 1.5px solid rgba(26,26,26,.25); border-radius: 5px; position: relative; cursor: pointer; flex: none; transition: border-color .2s, background .2s; }
+    .ck:checked { background: #B0552F; border-color: #B0552F; }
+    .ck:checked::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #F5F4F2; font-size: 10px; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+    /* Range slider */
+    input[type="range"] { -webkit-appearance: none; height: 3px; background: rgba(26,26,26,.15); border-radius: 4px; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #B0552F; border: 3px solid #F5F4F2; box-shadow: 0 1px 4px rgba(26,26,26,.3); cursor: pointer; }
+    input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #B0552F; border: 3px solid #F5F4F2; box-shadow: 0 1px 4px rgba(26,26,26,.3); cursor: pointer; border: none; }
+
+    /* Cart drawer */
+    #cartDrawer { transform: translateX(100%); transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+    #cartDrawer.open { transform: translateX(0); }
+    #cartOverlay { opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+    #cartOverlay.open { opacity: 1; pointer-events: auto; }
+
+    /* Mobile filter sheet */
+    #filterSheet { transform: translateY(100%); transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+    #filterSheet.open { transform: translateY(0); }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .img-frame img, .product, #cartDrawer, #cartOverlay, #filterSheet { transition: none; }
+    }
+
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #B0552F; outline-offset: 3px; border-radius: 4px; }
+
+    /* Dark Mode specific rules for the new visible buttons */
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+    body.dark-mode .bg-bone { background-color: #121212; }
+    body.dark-mode .bg-sand { background-color: #1E1E1E; }
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char, body.dark-mode .text-char\/70, body.dark-mode .text-char\/60 { color: #B0ABA5; }
+    body.dark-mode .border-ink\/20, body.dark-mode .border-ink\/10 { border-color: rgba(245,245,242,0.15); }
+    
+    body.dark-mode .add-btn { border-color: rgba(245,245,242,0.2); color: #F5F4F2; }
+    body.dark-mode .add-btn:hover { background-color: #B0552F; border-color: #B0552F; color: #F5F4F2; }
+    
+    body.dark-mode .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(245,245,242,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(245,245,242,.12) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(245,245,242,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(245,245,242,.10) 1px, transparent 1.6px) !important;
+    }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans overflow-x-hidden transition-colors duration-300">
+
+  <div id="navbar"></div>
+  <script src="navbar.js"></script>
+
+<section class="relative min-h-[100dvh] pt-32 pb-16 lg:pt-40 lg:pb-24 flex flex-col justify-center overflow-hidden speckle border-b border-ink/10 dark:border-bone/10">
+  
+  <!-- Faint Oversized Background Text (Moved slightly down to account for nav) -->
+  <div class="absolute top-28 lg:top-36 left-0 text-[16vw] font-display font-bold text-ink/[0.03] dark:text-bone/[0.03] select-none pointer-events-none whitespace-nowrap z-0">
+    THE SHOP
+  </div>
+
+  <div class="max-w-[1500px] mx-auto px-5 lg:px-10 relative z-10 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
+      
+      <!-- Left: Shop Title & Cart Trigger -->
+      <div class="reveal z-20">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5 flex items-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> Kiln to Table
+        </p>
+        
+        <h1 class="font-display font-medium text-[3.2rem] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] leading-[0.95] tracking-tight mb-8">
+          Every piece,<br>
+          <span class="italic text-taupe block pl-4 sm:pl-12 mt-2">currently in stock.</span>
+        </h1>
+        
+       <p class="text-lg md:text-xl text-char/70 max-w-md mb-10 leading-relaxed">
+  Browse our latest firings. Hand-thrown stoneware plates, bowls, mugs, and serving ware designed for the deliberate meal.
+</p>
+
+        <!-- The main Cart button serves as the CTA in the hero -->
+        <button id="cartBtn" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-ink text-bone dark:bg-bone dark:text-ink font-bold text-sm hover:bg-clay dark:hover:bg-clay dark:hover:text-bone transition-colors duration-300 w-fit shadow-xl group">
+          <i class="fa-solid fa-bag-shopping"></i> View Cart
+          <span id="cartCount" class="ml-2 w-7 h-7 rounded-full bg-bone/20 dark:bg-ink/10 flex items-center justify-center group-hover:bg-bone/40 transition-colors">0</span>
+        </button>
+      </div>
+
+      <!-- Right: Asymmetrical Gallery -->
+      <!-- Added max-h-[650px] to ensure it doesn't overflow 100vh on standard desktop monitors -->
+      <div class="relative h-[400px] sm:h-[500px] lg:h-[65vh] min-h-[400px] lg:min-h-[500px] lg:max-h-[650px] w-full reveal" style="transition-delay: 0.15s;">
+        <div class="absolute top-0 right-0 w-[75%] h-[80%] rounded-[2.5rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(26,26,26,.2)] dark:shadow-none group">
+          <img src="images\0.avif" 
+               alt="Ceramic bowls stacked" 
+               class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+        </div>
+        <div class="absolute bottom-0 left-0 w-[55%] h-[55%] rounded-[2.5rem] border-8 border-bone dark:border-[#121212] overflow-hidden shadow-2xl z-10 group">
+          <img src="images\1.avif" 
+               alt="Plates ready for shipping" 
+               class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce flex-col items-center gap-2 text-taupe/60 dark:text-bone/40">
+    <span class="text-[9px] font-bold uppercase tracking-widest">Scroll to Shop</span>
+    <i class="fa-solid fa-arrow-down text-xs"></i>
+  </div>
+</section>
+
+  <section class="py-16 md:py-24 bg-bone">
+    <div class="max-w-[1500px] mx-auto px-5 lg:px-10 grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-16">
+
+      <aside class="hidden lg:block reveal">
+        <div class="sticky top-12 space-y-9">
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-taupe mb-4">Category</h3>
+            <div class="space-y-3 text-sm">
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck cat-filter" value="all" checked>
+                <span class="group-hover:text-clay transition-colors">All Pieces</span>
+                <span class="ml-auto text-taupe text-xs">9</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck cat-filter" value="plates">
+                <span class="group-hover:text-clay transition-colors">Plates</span>
+                <span class="ml-auto text-taupe text-xs">2</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck cat-filter" value="bowls">
+                <span class="group-hover:text-clay transition-colors">Bowls</span>
+                <span class="ml-auto text-taupe text-xs">2</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck cat-filter" value="mugs">
+                <span class="group-hover:text-clay transition-colors">Mugs &amp; Cups</span>
+                <span class="ml-auto text-taupe text-xs">3</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck cat-filter" value="serving">
+                <span class="group-hover:text-clay transition-colors">Serving Ware</span>
+                <span class="ml-auto text-taupe text-xs">2</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-ink/10 dark:border-bone/10">
+            <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-taupe mb-4">Glaze</h3>
+            <div class="space-y-3 text-sm">
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck glaze-filter" value="bone">
+                <span class="group-hover:text-clay transition-colors">Bone Speckle</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck glaze-filter" value="iron">
+                <span class="group-hover:text-clay transition-colors">Iron Clay</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck glaze-filter" value="sage">
+                <span class="group-hover:text-clay transition-colors">Sage Ash</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck glaze-filter" value="indigo">
+                <span class="group-hover:text-clay transition-colors">Indigo Pool</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck glaze-filter" value="honey">
+                <span class="group-hover:text-clay transition-colors">Honey Amber</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="ck glaze-filter" value="charcoal">
+                <span class="group-hover:text-clay transition-colors">Charcoal Matte</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-ink/10 dark:border-bone/10">
+            <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-taupe mb-4">Max price</h3>
+            <input type="range" id="priceRange" min="700" max="3000" step="50" value="3000" class="w-full">
+            <div class="flex justify-between text-xs text-char/60 mt-2">
+              <span>₹700</span>
+              <span class="font-bold text-ink" id="priceVal">₹3,000</span>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-ink/10 dark:border-bone/10">
+            <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-taupe mb-4">Availability</h3>
+            <label class="flex items-center gap-3 cursor-pointer group text-sm">
+              <input type="checkbox" id="inStockOnly" class="ck">
+              <span class="group-hover:text-clay transition-colors">In stock only</span>
+            </label>
+          </div>
+
+          <button id="resetFilters" class="text-xs font-bold uppercase tracking-[0.18em] text-clay hover:text-claydeep transition-colors pt-2">
+            Reset all filters
+          </button>
+
+          <div class="pt-8 border-t border-ink/10 dark:border-bone/10">
+            <div class="img-frame img-hover rounded-2xl aspect-[4/5]">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1604762524889-3e2fcc145683?q=80&w=600&auto=format&fit=crop"
+                   alt="Unfired pieces drying on studio shelves" onerror="this.style.display='none'">
+              <div class="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-ink/90 to-transparent">
+                <p class="text-bone text-sm font-bold leading-snug">Batch No. 015 fires June 19 — new stock lands the following week.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <div>
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8 reveal">
+          <button id="mobileFilterBtn" class="lg:hidden inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-ink/20 text-sm font-bold hover:border-clay hover:text-clay transition-colors">
+            <i class="fa-solid fa-sliders text-xs"></i> Filters
+          </button>
+          <p class="text-sm text-char/60"><span id="shownCount" class="font-bold text-ink">9</span> of 9 pieces</p>
+          <div class="flex items-center gap-3 ml-auto">
+            <!-- view toggle -->
+            <div class="hidden sm:flex items-center gap-1 border border-ink/20 dark:border-bone/20 rounded-full p-1">
+              <button id="viewGrid" aria-label="Grid view" class="view-btn w-9 h-9 rounded-full flex items-center justify-center bg-ink text-bone dark:bg-bone dark:text-ink"><i class="fa-solid fa-grip text-xs"></i></button>
+              <button id="viewList" aria-label="List view" class="view-btn w-9 h-9 rounded-full flex items-center justify-center text-char/60 hover:text-clay"><i class="fa-solid fa-list text-xs"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div id="activeChips" class="hidden flex-wrap gap-2 mb-6"></div>
+
+        <div id="productGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-12">
+
+          <article class="product img-hover group reveal" data-category="plates" data-glaze="bone" data-price="1450" data-stock="in" data-name="Bone Speckle Dinner Plate">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="images\9.avif" alt="Bone Speckle dinner plates stacked" onerror="this.style.display='none'">
+              <span class="absolute top-4 left-4 bg-ink text-bone dark:bg-bone dark:text-ink text-[10px] font-bold uppercase tracking-[0.16em] px-3 py-1.5 rounded-full">Bestseller</span>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Bone Speckle Dinner Plate</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Plates · 27 cm</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹1,450</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="bowls" data-glaze="iron" data-price="1250" data-stock="low" data-name="Iron Clay Ramen Bowl" style="transition-delay:.05s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=900&auto=format&fit=crop" alt="Iron Clay ramen bowl with reactive glaze" onerror="this.style.display='none'">
+              <span class="absolute top-4 left-4 bg-clay text-bone text-[10px] font-bold uppercase tracking-[0.16em] px-3 py-1.5 rounded-full">Low stock</span>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Iron Clay Ramen Bowl</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Bowls · 900 ml</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹1,250</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="mugs" data-glaze="sage" data-price="750" data-stock="in" data-name="Sage Ash Morning Mug" style="transition-delay:.1s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=900&auto=format&fit=crop" alt="Sage Ash morning mug with pulled handle" onerror="this.style.display='none'">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Sage Ash Morning Mug</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Mugs & Cups · 320 ml</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹750</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="serving" data-glaze="charcoal" data-price="2100" data-stock="in" data-name="Charcoal Matte Platter" style="transition-delay:.15s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=900&auto=format&fit=crop" alt="Charcoal Matte family platter on a wooden table" onerror="this.style.display='none'">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Charcoal Matte Platter</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Serving · 34 cm</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹2,100</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="mugs" data-glaze="honey" data-price="1800" data-stock="in" data-name="Honey Amber Chai Cups" style="transition-delay:.2s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1525974160448-038dacadcc71?q=80&w=900&auto=format&fit=crop" alt="Honey Amber chai cups, set of four" onerror="this.style.display='none'">
+              <span class="absolute top-4 left-4 bg-ink text-bone dark:bg-bone dark:text-ink text-[10px] font-bold uppercase tracking-[0.16em] px-3 py-1.5 rounded-full">Set of 4</span>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Honey Amber Chai Cups</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Mugs & Cups · 150 ml × 4</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹1,800</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="bowls" data-glaze="indigo" data-price="950" data-stock="low" data-name="Indigo Pool Breakfast Bowl" style="transition-delay:.25s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="images\4.avif" alt="Indigo Pool breakfast bowl" onerror="this.style.display='none'">
+              <span class="absolute top-4 left-4 bg-clay text-bone text-[10px] font-bold uppercase tracking-[0.16em] px-3 py-1.5 rounded-full">Monsoon drop</span>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Indigo Pool Breakfast Bowl</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Bowls · 450 ml</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹950</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="plates" data-glaze="sage" data-price="1150" data-stock="in" data-name="Sage Ash Side Plate" style="transition-delay:.3s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="images\img2.avif" alt="Sage Ash side plates" onerror="this.style.display='none'">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Sage Ash Side Plate</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Plates · 21 cm</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹1,150</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="serving" data-glaze="iron" data-price="2600" data-stock="in" data-name="Iron Clay Family Bowl" style="transition-delay:.35s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="images\img18.avif" alt="Iron Clay serving bowl at the centre of a set table" onerror="this.style.display='none'">
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors">Iron Clay Family Bowl</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Serving · 2.2 L</p>
+                </div>
+                <p class="font-bold whitespace-nowrap">₹2,600</p>
+              </div>
+              <button class="add-btn w-full py-3.5 rounded-full border border-ink/20 text-ink text-sm font-bold hover:bg-clay hover:border-clay hover:text-bone transition-all duration-300">Add to Cart</button>
+            </div>
+          </article>
+
+          <article class="product img-hover group reveal" data-category="mugs" data-glaze="charcoal" data-price="850" data-stock="out" data-name="Charcoal Matte Coffee Mug" style="transition-delay:.4s">
+            <div class="img-frame rounded-[1.6rem] aspect-[4/5] mb-5">
+              <img loading="lazy" src="images\img3.avif" alt="Charcoal Matte pour-over coffee mug" onerror="this.style.display='none'">
+              <span class="absolute top-4 left-4 bg-char text-bone text-[10px] font-bold uppercase tracking-[0.16em] px-3 py-1.5 rounded-full">Sold out</span>
+              <div class="absolute inset-0 bg-bone/40 dark:bg-ink/60"></div>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-display text-xl group-hover:text-clay transition-colors opacity-60">Charcoal Matte Coffee Mug</h3>
+                  <p class="text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-1">Mugs & Cups · 280 ml</p>
+                </div>
+                <p class="font-bold whitespace-nowrap opacity-60">₹850</p>
+              </div>
+              <button class="w-full py-3.5 rounded-full border border-ink/10 text-ink/40 dark:border-bone/10 dark:text-bone/40 text-sm font-bold cursor-not-allowed" disabled>Out of Stock</button>
+            </div>
+          </article>
+
+        </div>
+
+        <div id="emptyState" class="hidden text-center py-20">
+          <p class="font-display text-2xl mb-3">No pieces match these filters</p>
+          <p class="text-char/60 text-sm mb-6">Try widening the price range or clearing a glaze filter.</p>
+          <button id="emptyReset" class="px-7 py-3 rounded-full bg-ink text-bone text-sm font-bold hover:bg-clay transition-colors">Reset Filters</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="filterOverlay" class="lg:hidden fixed inset-0 bg-ink/50 z-[70] hidden"></div>
+  <div id="filterSheet" class="lg:hidden fixed bottom-0 inset-x-0 z-[80] bg-bone dark:bg-ink rounded-t-[2rem] max-h-[85vh] overflow-y-auto px-6 pt-6 pb-10">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="font-display text-2xl">Filters</h3>
+      <button id="closeFilterSheet" aria-label="Close filters" class="w-10 h-10 rounded-full border border-ink/15 dark:border-bone/15 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="space-y-8">
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-taupe mb-4">Category</h4>
+        <div class="flex flex-wrap gap-2">
+          <button class="cat-chip active px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.1em] bg-ink text-bone dark:bg-bone dark:text-ink" data-cat="all">All</button>
+          <button class="cat-chip px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.1em] border border-ink/20 dark:border-bone/20" data-cat="plates">Plates</button>
+          <button class="cat-chip px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.1em] border border-ink/20 dark:border-bone/20" data-cat="bowls">Bowls</button>
+          <button class="cat-chip px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.1em] border border-ink/20 dark:border-bone/20" data-cat="mugs">Mugs & Cups</button>
+          <button class="cat-chip px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.1em] border border-ink/20 dark:border-bone/20" data-cat="serving">Serving</button>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-taupe mb-4">Max price <span id="priceValMobile" class="text-ink">₹3,000</span></h4>
+        <input type="range" id="priceRangeMobile" min="700" max="3000" step="50" value="3000" class="w-full">
+      </div>
+
+      <label class="flex items-center gap-3 cursor-pointer text-sm">
+        <input type="checkbox" id="inStockOnlyMobile" class="ck">
+        <span>In stock only</span>
+      </label>
+    </div>
+
+    <button id="applyFiltersMobile" class="mt-9 w-full py-4 rounded-full bg-clay text-bone font-bold text-sm hover:bg-claydeep transition-colors">Show Results</button>
+  </div>
+
+  <div id="cartOverlay" class="fixed inset-0 bg-ink/50 z-[70]"></div>
+  <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-bone dark:bg-ink z-[80] shadow-2xl flex flex-col">
+    <div class="flex items-center justify-between px-6 py-6 border-b border-ink/10 dark:border-bone/10">
+      <h3 class="font-display text-2xl">Your Cart</h3>
+      <button id="closeCart" aria-label="Close cart" class="w-10 h-10 rounded-full border border-ink/15 dark:border-bone/15 flex items-center justify-center hover:border-clay hover:text-clay transition-colors"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div id="cartItems" class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+      <p class="text-center text-char/50 text-sm py-16">Your cart is empty — add a piece from the shop to begin.</p>
+    </div>
+
+    <div class="px-6 py-6 border-t border-ink/10 dark:border-bone/10 space-y-4">
+      <div class="flex items-center justify-between text-sm text-char/70">
+        <span>Subtotal</span>
+        <span id="cartSubtotal" class="font-bold text-ink">₹0</span>
+      </div>
+      <p class="text-xs text-char/50">Shipping & taxes calculated at checkout. Free shipping over ₹3,000.</p>
+      <a href="contact.html" class="block text-center w-full py-4 rounded-full bg-ink text-bone dark:bg-bone dark:text-ink font-bold text-sm hover:bg-clay dark:hover:bg-clay dark:hover:text-bone transition-colors">Checkout</a>
+    </div>
+  </aside>
+<!-- ============================================================ SHOP CTA: BESPOKE & WHOLESALE -->
+  <section class="pb-16 md:pb-24 bg-bone dark:bg-[#121212] transition-colors duration-300">
+    <div class="max-w-[1500px] mx-auto px-5 lg:px-10">
+      
+      <div class="reveal relative overflow-hidden rounded-[2.5rem] bg-char dark:bg-ink text-bone flex flex-col lg:flex-row shadow-2xl border border-transparent dark:border-bone/10 group">
+        
+        <!-- Left: Atmospheric Image -->
+        <div class="w-full lg:w-1/2 h-[350px] sm:h-[450px] lg:h-auto relative overflow-hidden">
+          <img src="images\8.avif" 
+               alt="Chef plating on custom KlinCraft ceramics" 
+               class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+          <!-- Subtle gradient overlay to blend image into the dark card on mobile -->
+          <div class="absolute inset-0 bg-gradient-to-t from-char dark:from-ink to-transparent lg:hidden"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent to-char dark:to-ink hidden lg:block opacity-50"></div>
+        </div>
+
+        <!-- Right: Content -->
+        <div class="w-full lg:w-1/2 p-8 sm:p-12 lg:p-20 flex flex-col justify-center relative z-10">
+          
+          <!-- Decorative Background Elements -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-clay/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5 flex items-center gap-3">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span> Beyond the shop
+          </p>
+          
+          <h2 class="font-display font-medium text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight mb-6">
+            Didn't find your<br>
+            <span class="italic text-taupe">perfect set?</span>
+          </h2>
+          
+          <p class="text-bone/70 text-lg leading-relaxed mb-10 max-w-md">
+            We regularly partner with restaurants, cafes, and individuals to create custom dinnerware lines. From bespoke glaze development to specific clay bodies, let's build a batch entirely for your table.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <a href="contact.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-clay text-bone font-bold text-sm hover:bg-claydeep transition-colors duration-300">
+              Start a Commission <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="contact.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full border border-bone/20 text-bone font-bold text-sm hover:border-clay hover:text-clay transition-colors duration-300">
+              Request Wholesale Catalog
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <div id="footer"></div>
+  <script src="footer.js"></script>
+  <script>
+    // ----- State -----
+    const products = Array.from(document.querySelectorAll('.product'));
+    const grid = document.getElementById('productGrid');
+    const shownCount = document.getElementById('shownCount');
+    const emptyState = document.getElementById('emptyState');
+    let maxPrice = 3000;
+    let inStockOnly = false;
+    let activeCats = new Set(['all']);
+    let activeGlazes = new Set();
+
+    function applyFilters() {
+      let visible = 0;
+      products.forEach(p => {
+        const cat = p.dataset.category;
+        const glaze = p.dataset.glaze;
+        const price = +p.dataset.price;
+        const stock = p.dataset.stock;
+
+        const catOk = activeCats.has('all') || activeCats.has(cat);
+        const glazeOk = activeGlazes.size === 0 || activeGlazes.has(glaze);
+        const priceOk = price <= maxPrice;
+        const stockOk = !inStockOnly || stock !== 'out';
+
+        const show = catOk && glazeOk && priceOk && stockOk;
+        p.classList.toggle('hide', !show);
+        if (show) visible++;
+      });
+      shownCount.textContent = visible;
+      emptyState.classList.toggle('hidden', visible > 0);
+      grid.classList.toggle('hidden', visible === 0);
+      renderChips();
+    }
+
+    function renderChips() {
+      const chips = document.getElementById('activeChips');
+      chips.innerHTML = '';
+      const items = [];
+      activeCats.forEach(c => { if (c !== 'all') items.push({ type: 'cat', value: c, label: c.charAt(0).toUpperCase() + c.slice(1) }); });
+      activeGlazes.forEach(g => items.push({ type: 'glaze', value: g, label: g.charAt(0).toUpperCase() + g.slice(1) }));
+      if (maxPrice < 3000) items.push({ type: 'price', value: maxPrice, label: `Under ₹${maxPrice.toLocaleString()}` });
+      if (inStockOnly) items.push({ type: 'stock', value: 'in', label: 'In stock only' });
+
+      if (items.length === 0) { chips.classList.add('hidden'); chips.classList.remove('flex'); return; }
+      chips.classList.remove('hidden'); chips.classList.add('flex');
+
+      items.forEach(it => {
+        const chip = document.createElement('button');
+        chip.className = 'inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sand dark:bg-[#1E1E1E] text-xs font-bold uppercase tracking-[0.1em] text-char/80 dark:text-bone/80 hover:text-clay transition-colors';
+        chip.innerHTML = `${it.label} <i class="fa-solid fa-xmark text-[10px]"></i>`;
+        chip.addEventListener('click', () => {
+          if (it.type === 'cat') { activeCats.delete(it.value); if (activeCats.size === 0) activeCats.add('all'); syncCatUI(); }
+          if (it.type === 'glaze') { activeGlazes.delete(it.value); document.querySelector(`.glaze-filter[value="${it.value}"]`).checked = false; }
+          if (it.type === 'price') { maxPrice = 3000; document.getElementById('priceRange').value = 3000; document.getElementById('priceVal').textContent = '₹3,000'; }
+          if (it.type === 'stock') { inStockOnly = false; document.getElementById('inStockOnly').checked = false; }
+          applyFilters();
+        });
+        chips.appendChild(chip);
+      });
+    }
+
+    function syncCatUI() {
+      document.querySelectorAll('.cat-filter').forEach(cb => cb.checked = activeCats.has(cb.value));
+      document.querySelectorAll('.cat-chip').forEach(c => {
+        const on = activeCats.has(c.dataset.cat) || (c.dataset.cat === 'all' && activeCats.has('all'));
+        
+        // Handle dark mode compatibility properly for these chips
+        if(on) {
+            c.classList.add('bg-ink', 'text-bone', 'dark:bg-bone', 'dark:text-ink', 'active');
+            c.classList.remove('border', 'border-ink/20', 'dark:border-bone/20');
+        } else {
+            c.classList.remove('bg-ink', 'text-bone', 'dark:bg-bone', 'dark:text-ink', 'active');
+            c.classList.add('border', 'border-ink/20', 'dark:border-bone/20');
+        }
+      });
+    }
+
+    // ----- Desktop category checkboxes -----
+    document.querySelectorAll('.cat-filter').forEach(cb => {
+      cb.addEventListener('change', () => {
+        if (cb.value === 'all') {
+          activeCats = cb.checked ? new Set(['all']) : new Set();
+        } else {
+          activeCats.delete('all');
+          if (cb.checked) activeCats.add(cb.value); else activeCats.delete(cb.value);
+          if (activeCats.size === 0) activeCats.add('all');
+        }
+        syncCatUI();
+        applyFilters();
+      });
+    });
+
+    // ----- Mobile category chips -----
+    document.querySelectorAll('.cat-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const val = chip.dataset.cat;
+        if (val === 'all') { activeCats = new Set(['all']); }
+        else { activeCats.delete('all'); activeCats.has(val) ? activeCats.delete(val) : activeCats.add(val); if (activeCats.size === 0) activeCats.add('all'); }
+        syncCatUI();
+      });
+    });
+
+    // ----- Glaze filters -----
+    document.querySelectorAll('.glaze-filter').forEach(cb => {
+      cb.addEventListener('change', () => {
+        cb.checked ? activeGlazes.add(cb.value) : activeGlazes.delete(cb.value);
+        applyFilters();
+      });
+    });
+
+    // ----- Price range (desktop + mobile, synced) -----
+    const priceRange = document.getElementById('priceRange');
+    const priceVal = document.getElementById('priceVal');
+    const priceRangeM = document.getElementById('priceRangeMobile');
+    const priceValM = document.getElementById('priceValMobile');
+    function setPrice(val) {
+      maxPrice = +val;
+      priceVal.textContent = `₹${maxPrice.toLocaleString()}`;
+      priceValM.textContent = `₹${maxPrice.toLocaleString()}`;
+      priceRange.value = maxPrice;
+      priceRangeM.value = maxPrice;
+    }
+    priceRange.addEventListener('input', e => { setPrice(e.target.value); applyFilters(); });
+    priceRangeM.addEventListener('input', e => setPrice(e.target.value));
+
+    // ----- In-stock toggle -----
+    const inStockCb = document.getElementById('inStockOnly');
+    const inStockCbM = document.getElementById('inStockOnlyMobile');
+    inStockCb.addEventListener('change', () => { inStockOnly = inStockCb.checked; inStockCbM.checked = inStockOnly; applyFilters(); });
+
+    // ----- Reset -----
+    function resetFilters() {
+      activeCats = new Set(['all']);
+      activeGlazes.clear();
+      setPrice(3000);
+      inStockOnly = false;
+      inStockCb.checked = false;
+      inStockCbM.checked = false;
+      document.querySelectorAll('.glaze-filter').forEach(cb => cb.checked = false);
+      syncCatUI();
+      applyFilters();
+    }
+    document.getElementById('resetFilters').addEventListener('click', resetFilters);
+    document.getElementById('emptyReset').addEventListener('click', resetFilters);
+
+    // ----- Mobile filter sheet -----
+    const filterSheet = document.getElementById('filterSheet');
+    const filterOverlay = document.getElementById('filterOverlay');
+    function openSheet() { filterSheet.classList.add('open'); filterOverlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeSheet() { filterSheet.classList.remove('open'); filterOverlay.classList.add('hidden'); document.body.style.overflow = ''; }
+    document.getElementById('mobileFilterBtn').addEventListener('click', openSheet);
+    document.getElementById('closeFilterSheet').addEventListener('click', closeSheet);
+    filterOverlay.addEventListener('click', closeSheet);
+    document.getElementById('applyFiltersMobile').addEventListener('click', () => { setPrice(priceRangeM.value); applyFilters(); closeSheet(); });
+
+
+
+    // ----- View toggle (grid / list) -----
+    const viewGrid = document.getElementById('viewGrid');
+    const viewList = document.getElementById('viewList');
+    viewGrid.addEventListener('click', () => {
+      grid.classList.remove('sm:grid-cols-1');
+      grid.classList.add('sm:grid-cols-2', 'xl:grid-cols-3');
+      viewGrid.classList.add('bg-ink', 'text-bone', 'dark:bg-bone', 'dark:text-ink'); viewGrid.classList.remove('text-char/60');
+      viewList.classList.remove('bg-ink', 'text-bone', 'dark:bg-bone', 'dark:text-ink'); viewList.classList.add('text-char/60');
+    });
+    viewList.addEventListener('click', () => {
+      grid.classList.add('sm:grid-cols-1');
+      grid.classList.remove('sm:grid-cols-2', 'xl:grid-cols-3');
+      viewList.classList.add('bg-ink', 'text-bone', 'dark:bg-bone', 'dark:text-ink'); viewList.classList.remove('text-char/60');
+      viewGrid.classList.remove('bg-ink', 'text-bone', 'dark:bg-bone', 'dark:text-ink'); viewGrid.classList.add('text-char/60');
+    });
+
+    // ----- Cart -----
+    // Using identical ID handling so both the hero button and the potential sticky buttons trigger correctly.
+    const cartBtns = document.querySelectorAll('#cartBtn');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartCountEl = document.getElementById('cartCount');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    let cart = {}; // name -> {price, qty}
+
+    function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+    cartBtns.forEach(btn => btn.addEventListener('click', openCart));
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    function renderCart() {
+      const names = Object.keys(cart);
+      if (names.length === 0) {
+        cartItemsEl.innerHTML = '<p class="text-center text-char/50 text-sm py-16">Your cart is empty — add a piece from the shop to begin.</p>';
+      } else {
+        cartItemsEl.innerHTML = names.map(name => {
+          const item = cart[name];
+          return `
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="font-bold text-sm text-ink">${name}</p>
+                <p class="text-xs text-char/60">Qty ${item.qty} × ₹${item.price.toLocaleString()}</p>
+              </div>
+              <p class="font-bold text-sm whitespace-nowrap">₹${(item.qty * item.price).toLocaleString()}</p>
+            </div>`;
+        }).join('');
+      }
+      const totalQty = names.reduce((s, n) => s + cart[n].qty, 0);
+      const subtotal = names.reduce((s, n) => s + cart[n].qty * cart[n].price, 0);
+      if(cartCountEl) cartCountEl.textContent = totalQty;
+      cartSubtotalEl.textContent = `₹${subtotal.toLocaleString()}`;
+    }
+
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      if (btn.disabled) return;
+      btn.addEventListener('click', () => {
+        const article = btn.closest('.product');
+        const name = article.dataset.name;
+        const price = +article.dataset.price;
+        cart[name] = cart[name] || { price, qty: 0 };
+        cart[name].qty++;
+        renderCart();
+
+        const original = btn.textContent;
+        btn.textContent = 'Added ✓';
+        btn.classList.add('bg-clay', 'text-bone');
+        setTimeout(() => { 
+            btn.textContent = original; 
+            btn.classList.remove('bg-clay', 'text-bone');
+        }, 1200);
+      });
+    });
+
+    // ----- Scroll reveal -----
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    // init
+    syncCatUI();
+    renderCart();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshops — KlinCraft Studio</title>
+  <meta name="description" content="Join our Saturday wheel workshops and learn the art of hand-thrown ceramics in our Bengaluru studio.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#F5F4F2',
+            sand:   '#EBE7E0',
+            ink:    '#1A1A1A',
+            char:   '#2C2C2C',
+            taupe:  '#8A8278',
+            clay:   '#B0552F',
+            claydeep: '#8F421F',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Karla', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    /* ---------- Speckled stoneware texture ---------- */
+    .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(44,44,44,.22) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(44,44,44,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(44,44,44,.20) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(44,44,44,.14) 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 46%, rgba(44,44,44,.18) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px, 48px 48px;
+    }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* keyboard focus */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #B0552F;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* =========================================
+       DARK MODE OVERRIDES
+       ========================================= */
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+    body.dark-mode .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(245,245,242,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(245,245,242,.12) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(245,245,242,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(245,245,242,.10) 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 46%, rgba(245,245,242,.14) 1px, transparent 1.6px) !important;
+    }
+    body.dark-mode .bg-bone { background-color: #121212; }
+    body.dark-mode .bg-sand { background-color: #1E1E1E; }
+    body.dark-mode .bg-char { background-color: #0D0D0D; }
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char, body.dark-mode .text-char\/70, body.dark-mode .text-char\/75 { color: #B0ABA5; }
+    body.dark-mode .text-taupe { color: #9E9790; }
+    body.dark-mode .border-ink\/10, body.dark-mode .border-ink\/20 { border-color: rgba(245,245,242,0.15); }
+    body.dark-mode a.bg-ink { background-color: #F5F4F2; color: #1A1A1A; }
+    body.dark-mode a.bg-ink:hover { background-color: #B0552F; color: #F5F4F2; }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans overflow-x-hidden transition-colors duration-300">
+
+  <div id="navbar"></div>
+  <script src="navbar.js"></script>
+
+  <!-- ============================================================ HERO: ASYMMETRICAL SPLIT -->
+ <!-- ============================================================ HERO: EDITORIAL ARCH & ANCHOR -->
+<!-- ============================================================ HERO: EDITORIAL ARCH & ANCHOR -->
+<section class="relative min-h-[100dvh] pt-32 pb-16 lg:pt-0 lg:pb-0 flex flex-col justify-center overflow-hidden speckle bg-bone text-ink transition-colors duration-300">
+  
+  <!-- Ambient Studio Lighting (Background Blur) -->
+  <div class="absolute top-0 right-0 w-[400px] h-[400px] lg:w-[600px] lg:h-[600px] bg-clay/15 rounded-full blur-[100px] lg:blur-[140px] pointer-events-none z-0"></div>
+
+  <!-- Oversized Watermark -->
+  <div class="absolute bottom-0 left-0 translate-y-1/4 text-[18vw] leading-none font-display font-bold text-ink/[0.02] dark:text-bone/[0.02] select-none pointer-events-none whitespace-nowrap z-0">
+    KLINCRAFT
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 relative z-10 w-full">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
+
+      <!-- ================= LEFT: Typography ================= -->
+      <div class="w-full lg:w-7/12 reveal z-20">
+        
+        <!-- Live Status Indicator -->
+        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-ink/10 dark:border-bone/10 bg-sand/60 dark:bg-ink/60 backdrop-blur-md mb-8 lg:mb-10 shadow-sm">
+          <span class="relative flex h-2.5 w-2.5 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-clay opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-clay"></span>
+          </span>
+          <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-ink dark:text-bone">Kiln #2 is firing at 1280°C</span>
+        </div>
+
+      <!-- Editorial Heading -->
+<h1 class="font-display font-medium text-[2.75rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] leading-[1.05] lg:leading-[0.95] tracking-tight mb-6 md:mb-8">
+  Earth, fire &<span class="italic text-taupe block pl-4 sm:pl-8 md:pl-12 lg:pl-20 mt-1 md:mt-2">human hands.</span>
+</h1>
+
+        <!-- Content Block with Accent Line -->
+        <!-- Content Block with Accent Line -->
+<div class="pl-6 sm:pl-12 lg:pl-20 border-l-[3px] border-clay/30 dark:border-clay/40">
+  <p class="text-lg lg:text-xl text-char/70 dark:text-bone/70 leading-relaxed max-w-md mb-8 lg:mb-10">
+    Small-batch stoneware dinnerware designed for the deliberate meal. Crafted entirely from scratch in our Bengaluru studio.
+  </p>
+
+    <!-- ... buttons stay the same ... -->
+
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <a href="#collections" class="w-full sm:w-auto px-9 py-4 rounded-full bg-ink text-bone font-bold text-sm hover:bg-clay dark:bg-bone dark:text-ink dark:hover:bg-clay dark:hover:text-bone transition-colors duration-300 text-center">
+              Explore Collections
+            </a>
+            <a href="#process" class="group w-full sm:w-auto px-9 py-4 rounded-full border border-ink/20 dark:border-bone/20 font-bold text-sm hover:border-clay hover:text-clay dark:hover:border-clay dark:hover:text-clay transition-colors duration-300 flex items-center justify-center gap-3">
+              <i class="fa-solid fa-play text-[11px] text-clay group-hover:scale-110 transition-transform"></i> Watch Process
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= RIGHT: Visual Composition ================= -->
+      <!-- Responsive Height constraints: scales with viewport up to 700px max -->
+      <div class="w-full lg:w-5/12 relative h-[450px] sm:h-[550px] lg:h-[75vh] lg:min-h-[500px] lg:max-h-[700px] reveal mt-8 lg:mt-0" style="transition-delay: 0.15s;">
+        
+        <!-- The Main Arch/Pill Image -->
+        <div class="absolute mt-10 top-0 right-0 w-[55%] h-[75%] rounded-[100rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(26,26,26,.15)] dark:shadow-none group">
+          <img src="images\6.avif" 
+               alt="Potter shaping clay" 
+               class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+        </div>
+
+        <!-- The Overlapping Circle Image -->
+        <div class="absolute bottom-0 left-0 w-[60%] aspect-square rounded-full overflow-hidden border-8 border-bone dark:border-[#121212] shadow-2xl z-10 group">
+          <img src="images\7.avif" 
+               alt="Stacked ceramic plates" 
+               class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+        </div>
+
+        <!-- Floating Studio Ticket Tag -->
+        <div class="absolute top-[25%] lg:top-[30%] left-0 sm:left-4 lg:-left-12 bg-sand dark:bg-[#1E1E1E] border border-ink/5 dark:border-bone/5 p-4 lg:p-6 rounded-2xl shadow-2xl z-20 rotate-[-6deg] max-w-[160px] lg:max-w-[190px] hover:rotate-0 transition-transform duration-500 cursor-default">
+          <div class="flex justify-between items-center mb-3 lg:mb-4">
+            <i class="fa-solid fa-tag text-clay text-xs lg:text-sm"></i>
+            <span class="text-[9px] font-mono text-char/50 dark:text-bone/40">BATCH_042</span>
+          </div>
+          <p class="font-display text-base lg:text-xl leading-tight mb-2 text-ink dark:text-bone">Iron Glaze Series</p>
+          <div class="h-px w-full bg-ink/10 dark:bg-bone/10 my-2 lg:my-3"></div>
+          <p class="text-[9px] lg:text-[10px] uppercase tracking-wider text-char/70 dark:text-bone/60 font-bold">Limited to 50 pcs</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- ============================================================ PHILOSOPHY / WHAT WE DO -->
+  <section class="mt-10 py-20 md:py-32 bg-sand">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      
+      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div class="order-last lg:order-first grid grid-cols-2 gap-4 reveal">
+          <div class="rounded-[2rem] overflow-hidden h-[250px] sm:h-[350px]">
+             <img src="images\img12.avif" alt="Finished ceramic pieces" class="w-full h-full object-cover">
+          </div>
+          <div class="rounded-[2rem] overflow-hidden h-[250px] sm:h-[350px] mt-12">
+             <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=800&auto=format&fit=crop" alt="Ceramic tools and clay" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.1] tracking-tight mb-6">
+            More than just a<br>weekend hobby.
+          </h2>
+          <p class="text-char/75 text-lg leading-relaxed mb-6">
+            Whether you're looking to unwind or build a foundation in wheel-throwing, our space is built for focused, creative play. We process our clay in small batches[cite: 1] to ensure you get the best possible material to work with.
+          </p>
+          <p class="text-char/75 text-lg leading-relaxed mb-8">
+            Once you shape your piece, it remains in the studio to dry. We handle the trimming, the custom in-house glazing, and ensure it is fired at 1280°C[cite: 1] so your creation is completely food-safe and built to last.
+          </p>
+          
+          <ul class="space-y-4 text-sm font-bold text-ink mb-2">
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-clay"></i> All materials & aprons provided</li>
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-clay"></i> Expert glazing included</li>
+            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-clay"></i> Unlimited studio chai</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+<!-- ============================================================ PRIVATE EVENTS & GROUPS -->
+<section class="py-20 md:py-32 bg-ink text-bone relative overflow-hidden transition-colors duration-300">
+  
+  <!-- Glowing ambient light -->
+  <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-clay/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-taupe/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 relative z-10">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+
+      <!-- LEFT: Image -->
+      <div class="lg:col-span-6 reveal order-last lg:order-first">
+        <div class="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-15px_rgba(0,0,0,.5)] group">
+          <img src="images/5.avif" 
+               alt="Group of friends laughing at a pottery workshop" 
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+          
+          <!-- Frosted Glass Overlay Badge -->
+          <!-- UPDATED: Using white/black text instead of black/bone for better dark mode contrast -->
+          <div class="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8 bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 rounded-2xl p-5 flex items-center justify-between transition-transform duration-500 group-hover:-translate-y-2">
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">Group Size</p>
+              <p class="font-display text-lg text-white mt-1 tracking-wide">6 to 12 Makers</p>
+            </div>
+            <div class="w-12 h-12 shrink-0 rounded-full bg-clay text-white flex items-center justify-center shadow-lg">
+              <i class="fa-solid fa-users text-sm"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Content -->
+      <div class="lg:col-span-6 reveal">
+        
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5 flex items-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> Private Bookings
+        </p>
+        
+        <h2 class="font-display font-medium text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight mb-8">
+          Gather around <br>
+          <span class="italic text-taupe">the wheel.</span>
+        </h2>
+        
+        <p class="text-white/70 text-lg leading-relaxed mb-6 max-w-lg">
+          Looking for a different kind of team offsite, birthday celebration, or creative gathering? Book the entire studio for a private 3-hour throwing session.
+        </p>
+        
+        <p class="text-white/70 text-lg leading-relaxed mb-10 max-w-lg">
+          We close our doors to the public and dedicate our makers to your group. Bring your own wine, curate the studio playlist, and let your team get their hands dirty.
+        </p>
+
+        <!-- Feature List -->
+        <ul class="space-y-4 text-sm font-bold text-white mb-10 border-l border-white/20 pl-5">
+          <li class="flex items-center gap-4">
+            <span class="text-clay text-xs"><i class="fa-solid fa-asterisk"></i></span>
+            Dedicated instructors & private studio access
+          </li>
+          <li class="flex items-center gap-4">
+            <span class="text-clay text-xs"><i class="fa-solid fa-asterisk"></i></span>
+            2 finalized pieces per person (glazed & fired)
+          </li>
+          <li class="flex items-center gap-4">
+            <span class="text-clay text-xs"><i class="fa-solid fa-asterisk"></i></span>
+            Catering setup & extra social time available
+          </li>
+        </ul>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="mailto:hello@klincraft.com?subject=Private%20Event%20Inquiry" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full bg-clay text-white font-bold text-sm hover:bg-claydeep transition-colors duration-300">
+            Inquire for Groups <i class="fa-solid fa-envelope text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+  <!-- ============================================================ WORKSHOP OFFERINGS -->
+  <section id="schedule" class="py-20 md:py-32 bg-bone speckle relative">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 lg:mb-24 reveal">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center justify-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> The Curriculum
+        </p>
+        <h2 class="font-display font-medium text-4xl md:text-5xl lg:text-6xl tracking-tight">
+          Find your <span class="italic text-taupe">center.</span>
+        </h2>
+      </div>
+
+      <div class="space-y-8 lg:space-y-12">
+        
+        <!-- Workshop 1: The Saturday Wheel -->
+        <article class="reveal group bg-sand dark:bg-ink rounded-[2.5rem] p-6 sm:p-10 lg:p-12 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center border border-ink/5 dark:border-bone/5 hover:border-clay/30 transition-colors duration-500">
+          <div class="w-full lg:w-5/12 aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-lg">
+            <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" alt="Spinning pottery wheel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+          </div>
+          <div class="w-full lg:w-7/12 flex flex-col justify-center">
+            <div class="flex flex-wrap items-center gap-3 mb-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+              <span class="px-3 py-1.5 rounded-full bg-clay/10 text-clay">Beginner</span>
+              <span class="text-taupe"><i class="fa-regular fa-clock mr-1"></i> 3 Hours</span>
+            </div>
+            <h3 class="font-display text-3xl md:text-4xl mb-4 text-ink">Saturday's Wheel Workshop</h3>
+            <p class="text-char/70 leading-relaxed mb-8">
+              Our signature introductory class. We guide you step-by-step through wedging, centering, opening, and pulling your first bowls on the wheel[cite: 1]. Perfect for absolute beginners looking to experience the magic of throwing.
+            </p>
+            <div class="flex items-center justify-between border-t border-ink/10 dark:border-bone/10 pt-6 mt-auto">
+              <div>
+                <p class="text-sm font-bold text-ink">Every Saturday</p>
+                <p class="text-xs text-taupe mt-1">₹3,500 per person</p>
+              </div>
+              <a href="#" class="w-12 h-12 rounded-full border border-ink/20 flex items-center justify-center text-ink group-hover:bg-clay group-hover:border-clay group-hover:text-bone transition-all duration-300">
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Workshop 2: Handbuilding -->
+        <article class="reveal group bg-sand dark:bg-ink rounded-[2.5rem] p-6 sm:p-10 lg:p-12 flex flex-col lg:flex-row-reverse gap-10 lg:gap-16 items-center border border-ink/5 dark:border-bone/5 hover:border-clay/30 transition-colors duration-500">
+          <div class="w-full lg:w-5/12 aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-lg">
+            <img src="images\img15.webp" alt="Handbuilding ceramics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+          </div>
+          <div class="w-full lg:w-7/12 flex flex-col justify-center">
+            <div class="flex flex-wrap items-center gap-3 mb-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+              <span class="px-3 py-1.5 rounded-full bg-clay/10 text-clay">All Levels</span>
+              <span class="text-taupe"><i class="fa-regular fa-clock mr-1"></i> 2.5 Hours</span>
+            </div>
+            <h3 class="font-display text-3xl md:text-4xl mb-4 text-ink">The Handbuilding Masterclass</h3>
+            <p class="text-char/70 leading-relaxed mb-8">
+              Step away from the wheel and explore the ancient techniques of pinching, coiling, and slab-building. This session allows for more organic, sculptural forms and is incredibly meditative. 
+            </p>
+            <div class="flex items-center justify-between border-t border-ink/10 dark:border-bone/10 pt-6 mt-auto">
+              <div>
+                <p class="text-sm font-bold text-ink">Sundays</p>
+                <p class="text-xs text-taupe mt-1">₹2,800 per person</p>
+              </div>
+              <a href="#" class="w-12 h-12 rounded-full border border-ink/20 flex items-center justify-center text-ink group-hover:bg-clay group-hover:border-clay group-hover:text-bone transition-all duration-300">
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ TESTIMONIAL (Social Proof) -->
+  <section class="py-24 md:py-32 bg-char text-bone relative overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-clay/10 blur-[120px] pointer-events-none z-0"></div>
+    <div class="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-bone/5 blur-[120px] pointer-events-none z-0"></div>
+
+    <div class="max-w-[1000px] mx-auto px-5 lg:px-10 relative z-10 text-center">
+      <i class="fa-solid fa-quote-left text-4xl md:text-5xl text-clay/40 mb-8 reveal"></i>
+      <h2 class="font-display font-medium text-3xl md:text-4xl lg:text-5xl leading-[1.2] mb-12 reveal">
+        "I took the Saturday wheel workshop as a gift to myself. Came home with two wobbly bowls and a new obsession."
+      </h2>
+      <div class="flex items-center justify-center gap-4 reveal">
+        <span class="w-12 h-12 shrink-0 rounded-full bg-clay/15 text-clay flex items-center justify-center font-bold text-base border border-clay/30">SD</span>
+        <div class="text-left">
+          <span class="block text-base font-bold text-bone">Sneha D'Souza</span>
+          <span class="block text-[11px] uppercase tracking-[0.16em] text-bone/60 font-bold mt-1">Workshop alum, Bengaluru[cite: 1]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ LOCATION & CTA -->
+  <section class="py-20 md:py-28 bg-bone">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center bg-sand dark:bg-ink rounded-[3rem] p-6 sm:p-10 lg:p-16 shadow-lg border border-ink/5 dark:border-bone/5 reveal">
+        
+        <div>
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4">Location</p>
+          <h2 class="font-display text-4xl md:text-5xl mb-6">Our Bengaluru Studio</h2>
+          <p class="text-char/75 leading-relaxed mb-8">
+            Nestled in the heart of the city, our studio is fully equipped with professional wheels, massive wedging tables, and our custom high-fire kilns. We are located in Bengaluru[cite: 1], open to the public for workshops and collection browsing.
+          </p>
+          <a href="contact.html" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-ink text-bone font-bold text-sm hover:bg-clay transition-colors duration-300">
+            Book Your Spot <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <img src="images\img22.avif" alt="Ceramic tools" class="w-full h-[200px] md:h-[280px] object-cover rounded-[1.5rem]">
+          <img src="images\img24.avif" alt="Glazed bowls" class="w-full h-[200px] md:h-[280px] object-cover rounded-[1.5rem] mt-8">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="footer.js"></script>
+
+  <!-- ============================================================ SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll reveal logic
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { 
+              e.target.classList.add('in'); 
+              io.unobserve(e.target); 
+            }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      }
+    });
+  </script>
+  
+</body>
+
+</html>

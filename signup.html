@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sign Up — KlinCraft</title>
+  <meta name="description" content="Create a KlinCraft account to track orders and save your favourite pieces.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { 
+            bone: '#F5F4F2', 
+            sand: '#EBE7E0', 
+            ink: '#1A1A1A', 
+            char: '#2C2C2C', 
+            taupe: '#8A8278', 
+            clay: '#B0552F', 
+            claydeep: '#8F421F' 
+          },
+          fontFamily: { 
+            display: ['Fraunces', 'serif'], 
+            sans: ['Karla', 'sans-serif'] 
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #B0552F; outline-offset: 3px; border-radius: 4px; }
+    
+    /* Basic Dark Mode Overrides */
+    .dark body { background-color: #121212; color: #F5F4F2; }
+    .dark .bg-sand { background-color: #1E1E1E; }
+    .dark .bg-bone { background-color: #121212; }
+    .dark .text-ink { color: #F5F4F2; }
+    .dark .text-char\/70, .dark .text-char\/50 { color: #9E9790; }
+    .dark .border-\[\#C8C4BE\] { border-color: rgba(245,245,242,0.2); }
+    .dark .bg-ink { background-color: #F5F4F2; color: #1A1A1A; }
+    .dark .bg-ink:hover { background-color: #B0552F; color: #F5F4F2; }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans h-screen w-screen overflow-hidden flex flex-col transition-colors duration-300">
+<header class="absolute top-0 start-0 end-0 w-full px-5 py-5 lg:px-8 flex justify-between items-center z-50">
+    <a href="index.html" class="flex items-center gap-3 group pointer-events-auto">
+        <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-[#2C2C2C] dark:bg-bone flex items-center justify-center shadow-inner transition-colors duration-300">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="12" cy="17" rx="9" ry="4" stroke="currentColor" stroke-width="1.5" class="text-bone dark:text-ink"/>
+                <path d="M3 17V9C3 6.5 7 4 12 4s9 2.5 9 5v8" stroke="currentColor" stroke-width="1.5" class="text-bone dark:text-ink"/>
+                <path d="M3 9c0 2.5 4 4.5 9 4.5s9-2 9-4.5" stroke="currentColor" stroke-width="1.5" class="text-bone dark:text-ink"/>
+            </svg>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-xl font-black tracking-tight text-ink dark:text-bone transition-colors duration-300">
+                Klin<span class="text-[#8A8278]">Craft</span>
+            </span>
+        </div>
+    </a>
+    
+    <div class="flex items-center gap-2 pointer-events-auto">
+      <button id="rtl-toggle" type="button" class="w-10 h-10 rounded-full border border-ink/20 dark:border-bone/20 flex items-center justify-center text-ink dark:text-bone hover:bg-ink hover:text-bone dark:hover:bg-bone dark:hover:text-ink transition-colors font-bold text-[10px] tracking-wider uppercase" aria-label="Toggle Text Direction">
+        <span id="rtl-text">RTL</span>
+      </button>
+
+      <button id="theme-toggle" type="button" class="w-10 h-10 rounded-full border border-ink/20 dark:border-bone/20 flex items-center justify-center text-ink dark:text-bone hover:bg-ink hover:text-bone dark:hover:bg-bone dark:hover:text-ink transition-colors" aria-label="Toggle Dark Mode">
+        <i id="theme-toggle-dark-icon" class="fa-solid fa-moon hidden"></i>
+        <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
+      </button>
+    </div>
+</header>
+
+<main class="w-full h-full flex flex-col items-center justify-center px-4 pt-12 sm:pt-0 relative z-10 [@media(max-width:360px)]:mt-[13px]">    <div class="w-full max-w-md bg-sand rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_-15px_rgba(26,26,26,.08)] dark:shadow-none transition-colors duration-300 overflow-y-auto max-h-full" style="scrollbar-width: none;">
+      
+      <div class="text-center mb-5 sm:mb-6">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-char text-bone flex items-center justify-center mx-auto mb-3 sm:mb-4 dark:bg-bone dark:text-ink">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="17" rx="9" ry="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 17V9C3 6.5 7 4 12 4s9 2.5 9 5v8" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 9c0 2.5 4 4.5 9 4.5s9-2 9-4.5" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h1 class="font-display text-2xl sm:text-3xl mb-1">Join the Kiln</h1>
+        <p class="text-xs sm:text-sm text-char/70">Create an account and be the first to know</p>
+      </div>
+
+      <form class="space-y-3 sm:space-y-4">
+        <div>
+          <label class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-char/70 block mb-1">Full Name</label>
+          <input type="text" class="w-full px-4 py-2.5 rounded-full bg-bone text-ink border border-[#C8C4BE] focus:outline-none focus:border-clay dark:focus:border-clay transition-colors text-sm" placeholder="Your name">
+        </div>
+        <div>
+          <label class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-char/70 block mb-1">Email</label>
+          <input type="email" class="w-full px-4 py-2.5 rounded-full bg-bone text-ink border border-[#C8C4BE] focus:outline-none focus:border-clay dark:focus:border-clay transition-colors text-sm" placeholder="you@example.com">
+        </div>
+        
+        <div>
+          <label class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-char/70 block mb-1">Password</label>
+          <input type="password" class="w-full px-4 py-2.5 rounded-full bg-bone text-ink border border-[#C8C4BE] focus:outline-none focus:border-clay dark:focus:border-clay transition-colors text-sm" placeholder="At least 8 chars">
+        </div>
+
+        <div>
+          <label class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-char/70 block mb-1">Confirm Password</label>
+          <input type="password" class="w-full px-4 py-2.5 rounded-full bg-bone text-ink border border-[#C8C4BE] focus:outline-none focus:border-clay dark:focus:border-clay transition-colors text-sm" placeholder="Repeat password">
+        </div>
+
+        <div class="flex items-start gap-2.5 text-[11px] sm:text-xs pt-1">
+          <input type="checkbox" id="terms" class="mt-0.5 rounded border-[#C8C4BE] text-clay focus:ring-clay cursor-pointer shrink-0" required> 
+          <label for="terms" class="text-char/70 cursor-pointer leading-tight">
+            I agree to the <a href="#" class="text-clay font-bold hover:underline">Terms of Service</a> and <a href="#" class="text-clay font-bold hover:underline">Privacy Policy</a>.
+          </label>
+        </div>
+        
+        <button type="submit" class="w-full py-3 rounded-full bg-ink text-bone font-bold text-sm hover:bg-clay transition-colors duration-300 mt-2">Create Account</button>
+      </form>
+
+      <div class="mt-4 sm:mt-5 flex items-center gap-3">
+        <div class="h-px flex-1 bg-[#C8C4BE] dark:bg-bone/20"></div>
+        <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-char/50 font-bold whitespace-nowrap">Or continue with</span>
+        <div class="h-px flex-1 bg-[#C8C4BE] dark:bg-bone/20"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-5">
+        <button type="button" class="flex items-center justify-center gap-2 py-2.5 rounded-full border border-[#C8C4BE] hover:border-ink hover:bg-ink/5 dark:hover:border-bone dark:hover:bg-bone/10 transition-colors text-xs sm:text-sm font-bold text-ink">
+          <i class="fa-brands fa-google text-[1.1rem]"></i> Google
+        </button>
+        <button type="button" class="flex items-center justify-center gap-2 py-2.5 rounded-full border border-[#C8C4BE] hover:border-ink hover:bg-ink/5 dark:hover:border-bone dark:hover:bg-bone/10 transition-colors text-xs sm:text-sm font-bold text-ink">
+          <i class="fa-brands fa-apple text-[1.2rem] mb-[1px]"></i> Apple
+        </button>
+      </div>
+
+      <p class="text-center text-xs sm:text-sm text-char/70 mt-5">Already have an account? <a href="login.html" class="text-clay font-bold hover:underline">Log in</a></p>
+    </div>
+  </main>
+
+  <script>
+    const htmlElement = document.documentElement;
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        htmlElement.classList.add('dark');
+        lightIcon.classList.remove('hidden');
+    } else {
+        htmlElement.classList.remove('dark');
+        darkIcon.classList.remove('hidden');
+    }
+
+    themeToggleBtn.addEventListener('click', function() {
+        darkIcon.classList.toggle('hidden');
+        lightIcon.classList.toggle('hidden');
+        if (htmlElement.classList.contains('dark')) {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        } else {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        }
+    });
+
+    const rtlToggleBtn = document.getElementById('rtl-toggle');
+    const rtlText = document.getElementById('rtl-text');
+
+    rtlToggleBtn.addEventListener('click', () => {
+      if (htmlElement.getAttribute('dir') === 'ltr') {
+        htmlElement.setAttribute('dir', 'rtl');
+        rtlText.textContent = 'LTR';
+      } else {
+        htmlElement.setAttribute('dir', 'ltr');
+        rtlText.textContent = 'RTL'; 
+      }
+    });
+  </script>
+</body>
+</html>

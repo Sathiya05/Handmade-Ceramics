@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KlinCraft — Handcrafted Ceramic Dinnerware Studio</title>
+  <meta name="description" content="Hand-thrown stoneware dinnerware, made in small batches and fired to last a lifetime.">
+
+  <!-- Swap this for your local tailwind.js if you prefer -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bone:   '#F5F4F2',
+            sand:   '#EBE7E0',
+            ink:    '#1A1A1A',
+            char:   '#2C2C2C',
+            taupe:  '#8A8278',
+            clay:   '#B0552F',
+            claydeep: '#8F421F',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'],
+            sans: ['Karla', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@300;400;500;600;700;800&display=swap');
+
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    /* ---------- Speckled stoneware texture ---------- */
+    .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(44,44,44,.22) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(44,44,44,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(44,44,44,.20) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(44,44,44,.14) 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 46%, rgba(44,44,44,.18) 1px, transparent 1.6px);
+      background-size: 56px 56px, 72px 72px, 64px 64px, 80px 80px, 48px 48px;
+    }
+
+    /* ---------- The thrown plate (hero + glaze preview) ---------- */
+    .plate {
+      border-radius: 50%;
+      position: relative;
+      background:
+        radial-gradient(circle at 38% 34%, rgba(255,255,255,.55), transparent 46%),
+        radial-gradient(circle, var(--glaze-a, #DCD6CC) 0%, var(--glaze-a, #DCD6CC) 54%, var(--glaze-b, #B9B0A2) 55%, var(--glaze-b, #B9B0A2) 70%, var(--glaze-rim, #8A8278) 71%, var(--glaze-rim, #8A8278) 100%);
+      box-shadow:
+        inset 0 0 0 1px rgba(26,26,26,.06),
+        inset 0 18px 40px rgba(26,26,26,.14),
+        0 30px 60px -18px rgba(26,26,26,.35);
+      transition: --glaze-a .5s, --glaze-b .5s, filter .5s;
+    }
+    .plate::after {
+      content: '';
+      position: absolute; inset: 0; border-radius: 50%;
+      background-image:
+        radial-gradient(circle at 22% 40%, rgba(26,26,26,.18) 1px, transparent 1.5px),
+        radial-gradient(circle at 70% 24%, rgba(26,26,26,.14) 1px, transparent 1.5px),
+        radial-gradient(circle at 58% 72%, rgba(26,26,26,.16) 1px, transparent 1.5px);
+      background-size: 44px 44px, 60px 60px, 52px 52px;
+      opacity: .7;
+    }
+    /* throwing rings */
+    .plate::before {
+      content: '';
+      position: absolute; inset: 6%; border-radius: 50%;
+      background: repeating-radial-gradient(circle, transparent 0px, transparent 9px, rgba(26,26,26,.05) 10px, transparent 11px);
+      pointer-events: none;
+    }
+
+    @keyframes wheelspin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .spin-slow { animation: wheelspin 36s linear infinite; }
+
+    /* ---------- Marquee ---------- */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-track { animation: marquee 30s linear infinite; }
+
+    /* ---------- Organic "handmade" card shapes ---------- */
+    .blob-a { border-radius: 58% 42% 55% 45% / 48% 55% 45% 52%; }
+    .blob-b { border-radius: 44% 56% 48% 52% / 56% 44% 56% 44%; }
+    .blob-c { border-radius: 52% 48% 60% 40% / 44% 52% 48% 56%; }
+    .blob-d { border-radius: 46% 54% 42% 58% / 54% 46% 58% 42%; }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spin-slow, .marquee-track { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* keyboard focus */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid #B0552F;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* hairline kiln-curve divider */
+    .rim-divider { line-height: 0; display: block; }
+
+    /* ---------- Tab View ---------- */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.6rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #8A8278;
+    }
+    .tab-btn:hover {
+      color: #1A1A1A;
+      background: rgba(26,26,26,0.04);
+    }
+    .tab-btn.active {
+      background: #1A1A1A;
+      color: #F5F4F2;
+      border-color: #1A1A1A;
+    }
+    .tab-panel {
+      display: none;
+      animation: tabFadeIn 0.4s ease;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    body.dark-mode .tab-btn { color: #9E9790; }
+    body.dark-mode .tab-btn:hover { color: #F5F4F2; background: rgba(255,255,255,0.06); }
+    body.dark-mode .tab-btn.active { background: #F5F4F2; color: #1A1A1A; border-color: #F5F4F2; }
+
+    /* =========================================
+       DARK MODE — Full Page Sections
+       ========================================= */
+    body.dark-mode { background-color: #121212; color: #F5F4F2; }
+
+    /* Speckle texture for dark mode — white dots on dark bg */
+    body.dark-mode .speckle {
+      background-image:
+        radial-gradient(circle at 18% 32%, rgba(245,245,242,.18) 1px, transparent 1.6px),
+        radial-gradient(circle at 64% 12%, rgba(245,245,242,.12) 1px, transparent 1.6px),
+        radial-gradient(circle at 82% 58%, rgba(245,245,242,.16) 1px, transparent 1.6px),
+        radial-gradient(circle at 36% 78%, rgba(245,245,242,.10) 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 46%, rgba(245,245,242,.14) 1px, transparent 1.6px) !important;
+    }
+
+    /* ========== HERO ========== */
+    body.dark-mode section:first-of-type,
+    body.dark-mode .hero-section {
+      background-color: #121212;
+    }
+    body.dark-mode section:first-of-type .bg-bone,
+    body.dark-mode .hero-section .bg-bone {
+      background-color: #1E1E1E;
+    }
+    body.dark-mode section:first-of-type a:not([class*="bg-ink"]):not([class*="bg-clay"]) {
+      border-color: rgba(245,245,242,0.25);
+      color: #F5F4F2;
+    }
+
+    /* ========== COLLECTIONS ========== */
+    body.dark-mode #collections {
+      background-color: #121212;
+    }
+    body.dark-mode #collections .bg-sand {
+      background-color: #1E1E1E;
+    }
+    body.dark-mode #collections .group .border-ink\/20 {
+      border-color: rgba(245,245,242,0.2);
+    }
+
+    /* ========== CRAFT (naturally dark, just freshen) ========== */
+    body.dark-mode #craft {
+      background-color: #0D0D0D;
+    }
+    body.dark-mode #craft .bg-bone {
+      background-color: #F5F4F2;
+    }
+    body.dark-mode #craft .bg-bone.text-ink {
+      color: #1A1A1A;
+    }
+    body.dark-mode #craft .border-char {
+      border-color: #0D0D0D;
+    }
+
+    /* ========== GLAZE LIBRARY ========== */
+    body.dark-mode #glazes {
+      background-color: #121212;
+    }
+    body.dark-mode #glazes .bg-ink {
+      background-color: #F5F4F2;
+      color: #1A1A1A;
+    }
+
+    /* ========== STUDIO ========== */
+    body.dark-mode #studio {
+      background-color: #1A1A1A;
+    }
+    body.dark-mode #studio .bg-bone {
+      background-color: #1E1E1E;
+    }
+    body.dark-mode #studio .bg-ink {
+      background-color: #2A2A2A;
+    }
+
+    /* ========== TESTIMONIALS ========== */
+    body.dark-mode #voices {
+      background-color: #121212;
+    }
+    body.dark-mode #voices .bg-sand {
+      background-color: #1E1E1E;
+    }
+
+    /* ========== CTA wrapper ========== */
+    body.dark-mode .cta-wrapper,
+    body.dark-mode section:last-of-type {
+      background-color: #121212;
+    }
+
+    /* Universal text colour overrides (safe — no !important) */
+    body.dark-mode .text-ink { color: #F5F4F2; }
+    body.dark-mode .text-char,
+    body.dark-mode .text-char\/70,
+    body.dark-mode .text-char\/75,
+    body.dark-mode .text-char\/60,
+    body.dark-mode .text-char\/65,
+    body.dark-mode .text-char\/50 { color: #B0ABA5; }
+    body.dark-mode .text-taupe { color: #9E9790; }
+    body.dark-mode .text-ink\/60,
+    body.dark-mode .text-ink\/20,
+    body.dark-mode .text-ink\/15 { color: rgba(245,245,242,0.5); }
+    body.dark-mode .text-bone\/65,
+    body.dark-mode .text-bone\/60,
+    body.dark-mode .text-bone\/70 { color: rgba(245,245,242,0.65); }
+    body.dark-mode .text-bone\/50 { color: rgba(245,245,242,0.5); }
+
+    /* Universal border overrides */
+    body.dark-mode .border-ink\/20,
+    body.dark-mode .border-ink\/15,
+    body.dark-mode .border-ink\/10 { border-color: rgba(245,245,242,0.15); }
+
+    /* Pill-shaped CTA buttons with bg-ink → invert so they stand out on dark bg */
+    body.dark-mode .rounded-full.bg-ink.text-bone.font-bold {
+      background-color: #F5F4F2 !important;
+      color: #1A1A1A !important;
+    }
+    body.dark-mode .rounded-full.bg-ink.text-bone.font-bold:hover {
+      background-color: #B0552F !important;
+      color: #F5F4F2 !important;
+    }
+
+    /* Hero floating stat card */
+    body.dark-mode section:first-of-type .absolute.-bottom-4 {
+      background-color: #1E1E1E;
+      border-color: rgba(245,245,242,0.1);
+    }
+
+    /* Glaze swatch label text */
+    body.dark-mode #glazes .glaze-btn .text-char\/70 { color: #9E9790; }
+
+    /* Collections heading link arrow */
+    body.dark-mode a[href="#"] .w-9.h-9.rounded-full {
+      border-color: rgba(245,245,242,0.2);
+    }
+
+    @media (max-width: 640px) {
+      .tabs { gap: 0.35rem; }
+      .tab-btn { padding: 0.45rem 1rem; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+
+<body class="bg-bone text-ink font-sans overflow-x-hidden">
+
+  <div id="navbar"></div>
+  <script src="navbar.js"></script>
+
+  <!-- ============================================================ HERO -->
+  <section class="relative pt-32 pb-16 md:pt-40 lg:pt-44 lg:pb-24 overflow-hidden speckle">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-6 items-center">
+
+        <div class="lg:col-span-7 relative z-10 text-center lg:text-left">
+          
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-6 flex items-center justify-center lg:justify-start gap-3">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span>
+            Batch No. 014 · Now firing
+          </p>
+
+          <h1 class="font-display font-medium text-[2.9rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.4rem] tracking-tight text-ink mb-7">
+            Shaped by hand.<br>
+            <span class="italic text-taupe">Fired</span> to outlast<br>
+            every trend.
+          </h1>
+
+          <p class="text-base md:text-lg text-char/75 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-10">
+            Every plate, bowl, and mug at KlinCraft is thrown on the wheel, glazed by hand, and fired at 1280°C in small weekly batches. No two pieces match perfectly — that's the point.
+          </p>
+
+          <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 w-full sm:w-auto">
+            <a href="#collections" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-ink text-bone font-bold text-sm hover:bg-clay transition-colors duration-300">
+              Shop the Collections
+              <i class="fa-solid fa-arrow-down text-xs"></i>
+            </a>
+            <a href="#craft" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-ink/20 text-ink font-bold text-sm hover:border-clay hover:text-clay transition-colors duration-300">
+              See How It's Made
+            </a>
+          </div>
+
+          <div class="mt-12 flex flex-wrap justify-center lg:justify-start gap-x-10 gap-y-4 text-sm text-char/70">
+            <div class="flex items-center gap-2"><i class="fa-solid fa-fire text-clay"></i> Stoneware, fired 1280°C</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-utensils text-clay"></i> Food-safe, lead-free glazes</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-soap text-clay"></i> Dishwasher friendly</div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
+          <div class="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] lg:w-[430px] lg:h-[430px]">
+            
+          
+            
+            <div class="w-full h-full rounded-full overflow-hidden shadow-[0_20px_50px_-15px_rgba(26,26,26,.4)] relative z-10">
+              <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" alt="Hand-thrown ceramic plate" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="absolute -bottom-4 -left-2 sm:-left-8 bg-bone border border-ink/10 shadow-xl rounded-2xl px-5 py-4 flex items-center gap-4 z-20">
+              <div class="w-10 h-10 rounded-full bg-clay/15 text-clay flex items-center justify-center">
+                <i class="fa-solid fa-hands"></i>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-taupe font-bold">This week's wheel</p>
+                <p class="text-sm font-bold text-ink">142 pieces thrown by 3 makers</p>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ============================================================ COLLECTIONS -->
+ <section id="collections" class="py-20 md:py-28 bg-bone">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
+        <div class="max-w-2xl">
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span> The Collections
+          </p>
+          <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight">
+            Four families,<br class="hidden sm:block"> one table.
+          </h2>
+        </div>
+        <a href="#" class="group inline-flex items-center gap-3 text-sm font-bold text-ink hover:text-clay transition-colors w-fit">
+          Browse everything
+          <span class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center group-hover:border-clay group-hover:translate-x-1 transition-all">
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </span>
+        </a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+
+        <a href="#" class="group reveal bg-sand rounded-[2rem] p-7 pt-10 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_50px_-25px_rgba(26,26,26,.35)]">
+          <div class="w-36 h-36 md:w-40 md:h-40 mb-8 rounded-full overflow-hidden shadow-[0_16px_26px_-14px_rgba(26,26,26,.35)] transition-all duration-500 group-hover:rotate-3 group-hover:scale-105">
+            <img src="images\img1.webp" alt="Ceramic Dinner Plates" class="w-full h-full object-cover">
+          </div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe mb-2">12 pieces</p>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-clay transition-colors">Dinner Plates</h3>
+          <p class="text-sm text-char/70 leading-relaxed">Wide rims, shallow wells. The plate that makes nights feels deliberate.</p>
+          <span class="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-ink/60 group-hover:text-clay transition-colors">From ₹1,450 →</span>
+        </a>
+
+        <a href="#" class="group reveal bg-sand rounded-[2rem] p-7 pt-10 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_50px_-25px_rgba(26,26,26,.35)]" style="transition-delay:.06s">
+          <div class="w-36 h-36 md:w-40 md:h-40 mb-8 rounded-full overflow-hidden shadow-[0_16px_26px_-14px_rgba(26,26,26,.35)] transition-all duration-500 group-hover:-rotate-3 group-hover:scale-105">
+            <img src="images\img2.avif" alt="Handcrafted Ceramic Bowls" class="w-full h-full object-cover">
+          </div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe mb-2">9 pieces</p>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-clay transition-colors">Bowls</h3>
+          <p class="text-sm text-char/70 leading-relaxed">From ramen-deep to breakfast-small, with rings you can feel under thumb.</p>
+          <span class="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-ink/60 group-hover:text-clay transition-colors">From ₹950 →</span>
+        </a>
+
+        <a href="#" class="group reveal bg-sand rounded-[2rem] p-7 pt-10 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_50px_-25px_rgba(26,26,26,.35)]" style="transition-delay:.12s">
+          <div class="w-36 h-36 md:w-40 md:h-40 mb-8 rounded-full overflow-hidden shadow-[0_16px_26px_-14px_rgba(26,26,26,.35)] transition-all duration-500 group-hover:-rotate-3 group-hover:scale-105">
+            <img src="images\img3.avif" alt="Ceramic Mugs and Cups" class="w-full h-full object-cover">
+          </div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe mb-2">7 pieces</p>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-clay transition-colors">Mugs & Cups</h3>
+          <p class="text-sm text-char/70 leading-relaxed">Pulled handles, balanced weight. Built for the slow first coffee of the morning.</p>
+          <span class="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-ink/60 group-hover:text-clay transition-colors">From ₹750 →</span>
+        </a>
+
+        <a href="#" class="group reveal bg-sand rounded-[2rem] p-7 pt-10 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_30px_50px_-25px_rgba(26,26,26,.35)]" style="transition-delay:.18s">
+          <div class="w-36 h-36 md:w-40 md:h-40 mb-8 rounded-full overflow-hidden shadow-[0_16px_26px_-14px_rgba(26,26,26,.35)] transition-all duration-500 group-hover:-rotate-3 group-hover:scale-105">
+            <img src="images\img4.avif" alt="Ceramic Serving Ware" class="w-full h-full object-cover">
+          </div>
+          <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-taupe mb-2">6 pieces</p>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-clay transition-colors">Serving Ware</h3>
+          <p class="text-sm text-char/70 leading-relaxed">Platters, pourers, and family-style bowls that anchor the centre of the table.</p>
+          <span class="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-ink/60 group-hover:text-clay transition-colors">From ₹1,900 →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CRAFT PROCESS -->
+  <section id="craft" class="py-20 md:py-28 bg-char text-bone relative overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full bg-clay/10 blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10 relative z-10">
+      <div class="max-w-2xl mb-16 reveal">
+        <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+          <span class="inline-block w-8 h-[2px] bg-clay"></span> From mud to mealtime
+        </p>
+        <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight">
+          Five stages. Eleven days.<br>
+          <span class="italic text-taupe">Zero shortcuts.</span>
+        </h2>
+      </div>
+
+      <!-- Kiln timeline -->
+      <div class="relative">
+        <div class="hidden lg:block absolute top-7 left-0 w-full h-[2px] bg-gradient-to-r from-taupe/30 via-clay to-taupe/30"></div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-12">
+
+          <div class="reveal relative">
+            <div class="w-14 h-14 rounded-full bg-bone text-ink flex items-center justify-center text-lg mb-6 relative z-10 border-4 border-char">
+              <i class="fa-solid fa-cubes-stacked"></i>
+            </div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-clay mb-2">Day 1 · Wedge</p>
+            <h3 class="font-display text-xl mb-2">Preparing clay</h3>
+            <p class="text-sm text-bone/65 leading-relaxed">Local stoneware clay is wedged by hand to push out air pockets — the silent killers of kiln firings.</p>
+          </div>
+
+          <div class="reveal relative" style="transition-delay:.06s">
+            <div class="w-14 h-14 rounded-full bg-bone text-ink flex items-center justify-center text-lg mb-6 relative z-10 border-4 border-char">
+              <i class="fa-solid fa-compact-disc"></i>
+            </div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-clay mb-2">Day 1–2 · Throw</p>
+            <h3 class="font-display text-xl mb-2">On the wheel</h3>
+            <p class="text-sm text-bone/65 leading-relaxed">Each form is thrown individually. Weight, rim, and curve are checked against the batch master.</p>
+          </div>
+
+          <div class="reveal relative" style="transition-delay:.12s">
+            <div class="w-14 h-14 rounded-full bg-bone text-ink flex items-center justify-center text-lg mb-6 relative z-10 border-4 border-char">
+              <i class="fa-solid fa-pen-nib"></i>
+            </div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-clay mb-2">Day 3–4 · Trim</p>
+            <h3 class="font-display text-xl mb-2">Trim & stamp</h3>
+            <p class="text-sm text-bone/65 leading-relaxed">Leather-hard pieces are trimmed, footed, and stamped with the KlinCraft seal and batch number.</p>
+          </div>
+
+          <div class="reveal relative" style="transition-delay:.18s">
+            <div class="w-14 h-14 rounded-full bg-bone text-ink flex items-center justify-center text-lg mb-6 relative z-10 border-4 border-char">
+              <i class="fa-solid fa-droplet"></i>
+            </div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-clay mb-2">Day 6–7 · Glaze</p>
+            <h3 class="font-display text-xl mb-2">Dipped by hand</h3>
+            <p class="text-sm text-bone/65 leading-relaxed">After a bisque firing, every piece is hand-dipped in our small-batch, food-safe glazes and plates.</p>
+          </div>
+
+          <div class="reveal relative" style="transition-delay:.24s">
+            <div class="w-14 h-14 rounded-full bg-clay text-bone flex items-center justify-center text-lg mb-6 relative z-10 border-4 border-char shadow-[0_0_30px_rgba(176,85,47,.45)]">
+              <i class="fa-solid fa-fire-flame-curved"></i>
+            </div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-clay mb-2">Day 9–11 · Fire</p>
+            <h3 class="font-display text-xl mb-2">1280°C, 14 hours</h3>
+            <p class="text-sm text-bone/65 leading-relaxed">The glaze firing vitrifies the clay — chip-resistant, watertight, and ready for decades of dinners and sets.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ GLAZE LIBRARY (signature) -->
+ <section id="glazes" class="py-20 md:py-28 bg-bone speckle">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+        <div class="order-2 lg:order-1 flex justify-center reveal">
+          <div class="relative w-[280px] h-[280px] sm:w-[380px] sm:h-[380px]">
+            
+            <div class="w-full h-full rounded-full overflow-hidden shadow-[0_20px_40px_-15px_rgba(26,26,26,.4)] transition-all duration-500">
+              <img id="glazePlateImg" src="images\img11.avif" alt="Bone Speckle Ceramic Plate" class="w-full h-full object-cover transition-opacity duration-300">
+            </div>
+
+            <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-ink text-bone rounded-full px-6 py-2.5 text-xs font-bold uppercase tracking-[0.18em] whitespace-nowrap shadow-xl z-10">
+              <span id="glazeName">Bone Speckle</span>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2 flex flex-col items-center text-center">
+          
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center justify-center gap-3 reveal">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span> 
+            The Glaze Library 
+            <span class="inline-block w-8 h-[2px] bg-clay"></span>
+          </p>
+          
+          <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight mb-6 reveal">
+            Six glazes, mixed<br>in our own buckets.
+          </h2>
+          
+          <p class="text-char/75 leading-relaxed max-w-lg mb-10 reveal">
+            We blend every glaze in-house from raw minerals — no commercial pre-mixes. Tap a swatch to see it on the plate. Each one reacts differently to the kiln, so your piece will carry its own pattern of pools and breaks.
+          </p>
+
+          <div class="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-3 gap-4 max-w-md reveal w-full justify-items-center" role="group" aria-label="Glaze swatches">
+            
+            <button class="glaze-btn group flex flex-col items-center gap-2" data-name="Bone Speckle" data-a="#E3DDD2" data-b="#C8BFB0" data-rim="#8A8278">
+              <span class="w-14 h-14 rounded-full border-2 border-clay transition-transform group-hover:scale-110 overflow-hidden shadow-sm">
+                <img src="images\img5.avif" alt="Bone Speckle Texture" class="w-full h-full object-cover">
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-char/70">Bone</span>
+            </button>
+            
+            <button class="glaze-btn group flex flex-col items-center gap-2" data-name="Iron Clay" data-a="#C9805C" data-b="#A65A38" data-rim="#7C3D22">
+              <span class="w-14 h-14 rounded-full border-2 border-transparent transition-transform group-hover:scale-110 overflow-hidden shadow-sm">
+                <img src="images\img6.avif" alt="Iron Clay Texture" class="w-full h-full object-cover">
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-char/70">Iron</span>
+            </button>
+            
+            <button class="glaze-btn group flex flex-col items-center gap-2" data-name="Sage Ash" data-a="#BDC7B6" data-b="#8C9B83" data-rim="#67755F">
+              <span class="w-14 h-14 rounded-full border-2 border-transparent transition-transform group-hover:scale-110 overflow-hidden shadow-sm">
+                <img src="images\img7.avif" alt="Sage Ash Texture" class="w-full h-full object-cover">
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-char/70">Sage</span>
+            </button>
+            
+            <button class="glaze-btn group flex flex-col items-center gap-2" data-name="Indigo Pool" data-a="#8C9BB0" data-b="#5A6B85" data-rim="#3E4C63">
+              <span class="w-14 h-14 rounded-full border-2 border-transparent transition-transform group-hover:scale-110 overflow-hidden shadow-sm">
+                <img src="images\img8.avif" alt="Indigo Pool Texture" class="w-full h-full object-cover">
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-char/70">Indigo</span>
+            </button>
+            
+            <button class="glaze-btn group flex flex-col items-center gap-2" data-name="Honey Amber" data-a="#D9B375" data-b="#B98A45" data-rim="#8F6730">
+              <span class="w-14 h-14 rounded-full border-2 border-transparent transition-transform group-hover:scale-110 overflow-hidden shadow-sm">
+                <img src="images\img9.avif" alt="Honey Amber Texture" class="w-full h-full object-cover">
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-char/70">Honey</span>
+            </button>
+            
+            <button class="glaze-btn group flex flex-col items-center gap-2" data-name="Charcoal Matte" data-a="#5A5650" data-b="#3A3833" data-rim="#23211E">
+              <span class="w-14 h-14 rounded-full border-2 border-transparent transition-transform group-hover:scale-110 overflow-hidden shadow-sm">
+                <img src="images\img10.avif" alt="Charcoal Matte Texture" class="w-full h-full object-cover">
+              </span>
+              <span class="text-[10px] font-bold uppercase tracking-[0.14em] text-char/70">Charcoal</span>
+            </button>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ STUDIO STORY -->
+  <section id="studio" class="py-20 md:py-28 bg-sand">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+        <div class="lg:col-span-6 reveal">
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-4 flex items-center gap-3">
+            <span class="inline-block w-8 h-[2px] bg-clay"></span> The Studio
+          </p>
+          <h2 class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-tight mb-6">
+            A three-wheel workshop<br>in Bengaluru.
+          </h2>
+          <p class="text-char/75 leading-relaxed mb-5 max-w-xl">
+            KlinCraft started in 2017 with one second-hand wheel and a borrowed kiln. Today we're a team of five makers producing dinnerware for homes and restaurants across India — still in batches small enough that every piece passes through human hands at least nine times.
+          </p>
+          <p class="text-char/75 leading-relaxed mb-10 max-w-xl">
+            Seconds and kiln-kissed pieces are sold at the studio every first Saturday, and the off-cuts of clay go straight back into the wedging table. Almost nothing leaves this room as waste.
+          </p>
+          <a href="contact.html" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-ink text-bone font-bold text-sm hover:bg-clay transition-colors duration-300 w-fit">
+            Plan Your Visit <i class="fa-solid fa-location-dot text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Stat tiles -->
+        <div class="lg:col-span-6 grid grid-cols-2 gap-5">
+          <div class="reveal bg-bone rounded-[1.8rem] p-7 md:p-9">
+            <p class="font-display text-4xl md:text-5xl text-clay mb-2">9</p>
+            <p class="text-sm font-bold text-ink mb-1">Years at the wheel</p>
+            <p class="text-xs text-char/60 leading-relaxed">and roughly 40 tonnes of clay wedged since day one.</p>
+          </div>
+          <div class="reveal bg-bone rounded-[1.8rem] p-7 md:p-9" style="transition-delay:.06s">
+            <p class="font-display text-4xl md:text-5xl text-clay mb-2">52</p>
+            <p class="text-sm font-bold text-ink mb-1">Firings a year</p>
+            <p class="text-xs text-char/60 leading-relaxed">one kiln load every week, logged piece by piece.</p>
+          </div>
+          <div class="reveal bg-bone rounded-[1.8rem] p-7 md:p-9" style="transition-delay:.12s">
+            <p class="font-display text-4xl md:text-5xl text-clay mb-2">28</p>
+            <p class="text-sm font-bold text-ink mb-1">Restaurant partners</p>
+            <p class="text-xs text-char/60 leading-relaxed">custom tableware lines for kitchens across the country.</p>
+          </div>
+          <div class="reveal bg-ink text-bone rounded-[1.8rem] p-7 md:p-9" style="transition-delay:.18s">
+            <p class="font-display text-4xl md:text-5xl text-clay mb-2">100%</p>
+            <p class="text-sm font-bold mb-1">Clay recycled</p>
+            <p class="text-xs text-bone/60 leading-relaxed">trimmings and seconds are reclaimed back into the cycle.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ TESTIMONIALS -->
+<section id="voices" class="py-16 md:py-20 lg:py-28 bg-bone">
+    <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12 lg:mb-16 reveal">
+        <p class="text-[10px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-3 md:mb-4 flex items-center justify-center gap-2 md:gap-3">
+          <span class="inline-block w-6 md:w-8 h-[2px] bg-clay"></span> 
+          From their tables 
+          <span class="inline-block w-6 md:w-8 h-[2px] bg-clay"></span>
+        </p>
+        <h2 class="font-display font-medium text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight">
+          Plates with stories<br class="hidden sm:block"> already in them.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+        
+        <figure class="reveal bg-sand rounded-[1.5rem] md:rounded-[1.8rem] p-6 md:p-8 flex flex-col justify-between">
+          <blockquote class="font-display text-sm lg:text-lg leading-relaxed text-char mb-6 md:mb-8">
+            "We replaced our entire restaurant service with Charcoal line. Guests photograph the plates before food."
+          </blockquote>
+          <figcaption class="flex items-center gap-4 mt-auto">
+            <span class="w-10 h-10 md:w-11 md:h-11 shrink-0 rounded-full bg-clay/15 text-clay flex items-center justify-center font-bold text-sm md:text-base">AR</span>
+            <span>
+              <span class="block text-sm font-bold text-ink">Aanya Rao</span>
+              <span class="block text-[10px] md:text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-0.5">Chef-owner, Terra Kitchen</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="reveal bg-sand rounded-[1.5rem] md:rounded-[1.8rem] p-6 md:p-8 flex flex-col justify-between" style="transition-delay:.07s">
+          <blockquote class="font-display text-sm lg:text-lg leading-relaxed text-char mb-6 md:mb-8">
+            "Three years of daily use, two house moves, one toddler — not a single chip. The Iron Clay bowls still look fresh."
+          </blockquote>
+          <figcaption class="flex items-center gap-4 mt-auto">
+            <span class="w-10 h-10 md:w-11 md:h-11 shrink-0 rounded-full bg-clay/15 text-clay flex items-center justify-center font-bold text-sm md:text-base">VM</span>
+            <span>
+              <span class="block text-sm font-bold text-ink">Vikram Mehta</span>
+              <span class="block text-[10px] md:text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-0.5">Home cook, Pune</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        <figure class="reveal bg-sand rounded-[1.5rem] md:rounded-[1.8rem] p-6 md:p-8 flex flex-col justify-between md:col-span-2 lg:col-span-1" style="transition-delay:.14s">
+          <blockquote class="font-display text-sm lg:text-lg leading-relaxed text-char mb-6 md:mb-8">
+            "I took the Saturday wheel workshop as a gift to myself. Came home with two wobbly bowls and a new obsession."
+          </blockquote>
+          <figcaption class="flex items-center gap-4 mt-auto">
+            <span class="w-10 h-10 md:w-11 md:h-11 shrink-0 rounded-full bg-clay/15 text-clay flex items-center justify-center font-bold text-sm md:text-base">SD</span>
+            <span>
+              <span class="block text-sm font-bold text-ink">Sneha D'Souza</span>
+              <span class="block text-[10px] md:text-xs uppercase tracking-[0.16em] text-taupe font-bold mt-0.5">Workshop alum, Bengaluru</span>
+            </span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+  <!-- ============================================================ CTA -->
+  <section class="py-20 md:py-28 bg-bone">
+    <div class="max-w-[1200px] mx-auto px-5 lg:px-10">
+      <div class="reveal relative overflow-hidden rounded-[2.5rem] bg-char text-bone px-8 py-16 md:p-20 text-center">
+        <!-- throwing rings backdrop -->
+        <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
+             style="background: repeating-radial-gradient(circle at 50% 120%, transparent 0 38px, #F5F4F2 39px 40px);"></div>
+        <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-clay/20 blur-[90px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <p class="text-[11px] md:text-xs font-bold uppercase tracking-[0.28em] text-clay mb-5">Custom & wholesale</p>
+          <h2 class="font-display font-medium text-4xl md:text-6xl leading-[1.05] tracking-tight mb-6">
+            Your table deserves<br><span class="italic text-taupe">its own batch.</span>
+          </h2>
+          <p class="text-bone/70 leading-relaxed mb-10 max-w-xl mx-auto">
+            Commission a custom dinner set, build a tableware line for your restaurant, or book a seat at Saturday's wheel workshop. We fire every week — your pieces can be in the next load.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="contact.html" class="px-9 py-4 rounded-full bg-clay text-bone font-bold text-sm hover:bg-claydeep transition-colors duration-300">
+              Start a Commission
+            </a>
+            <a href="contact.html" class="px-9 py-4 rounded-full border border-bone/30 text-bone font-bold text-sm hover:border-clay hover:text-clay transition-colors duration-300">
+              Join a Workshop
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div id="footer"></div>
+  <script src="footer.js"></script>
+
+  <!-- ============================================================ SCRIPTS -->
+  <script>
+    // Glaze library swatches
+    const glazePlate = document.getElementById('glazePlate');
+    const glazeName = document.getElementById('glazeName');
+    const glazeBtns = document.querySelectorAll('.glaze-btn');
+    if (glazePlate && glazeBtns.length) {
+      glazeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          glazePlate.style.setProperty('--glaze-a', btn.dataset.a);
+          glazePlate.style.setProperty('--glaze-b', btn.dataset.b);
+          glazePlate.style.setProperty('--glaze-rim', btn.dataset.rim);
+          glazeName.textContent = btn.dataset.name;
+          glazeBtns.forEach(b => b.querySelector('span').classList.replace('border-clay', 'border-transparent'));
+          btn.querySelector('span').classList.replace('border-transparent', 'border-clay');
+        });
+      });
+    }
+
+    // Scroll reveal
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+  </script>
+</body>
+
+</html>
