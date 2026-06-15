@@ -61,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="login.html" class="cta-btn flex items-center justify-center xl:px-4 px-5 py-2.5 rounded-full bg-[#2C2C2C] text-white font-bold text-sm tracking-widest uppercase text-[11px] hover:bg-[#1A1A1A] hover:shadow-lg transition-all duration-300 gap-2">
              Login
           </a>
-          <a href="signup.html" class="cta-btn flex items-center justify-center xl:px-4 px-5 py-2.5 rounded-full bg-[#2C2C2C] text-white font-bold text-sm tracking-widest uppercase text-[11px] hover:bg-[#1A1A1A] hover:shadow-lg transition-all duration-300 gap-2">
-            Signup
-          </a>
+         <a href="signup.html" id="desktopSignupBtn" class="cta-btn flex items-center justify-center xl:px-4 px-5 py-2.5 rounded-full bg-transparent border border-black text-black font-bold text-sm tracking-widest uppercase text-[11px] hover:bg-[#1A1A1A] hover:text-white hover:shadow-lg transition-all duration-300 gap-2">
+  Signup
+</a>
         </div>
 
         <div class="relative z-[60] xl:hidden flex items-center gap-2 h-full">
@@ -93,10 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     
     <div class="mobile-dropdown-bg w-full bg-[#E5E2DC] rounded-2xl overflow-hidden mb-2 transition-colors">
-      <button id="mobileCollectionsBtn" class="flex items-center justify-between w-full px-6 py-4 text-[#1A1A1A] tracking-wider uppercase text-xs">
-        <span>Home</span>
-        <i id="mobileCollectionsIcon" class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
-      </button>
+    <button id="mobileCollectionsBtn" class="flex items-center justify-between w-full px-6 py-4 text-black tracking-wider uppercase text-xs">
+  <span>Home</span>
+  <i id="mobileCollectionsIcon" class="fa-solid fa-chevron-down text-sm text-black transition-transform duration-300"></i>
+</button>
       <div id="mobileCollectionsMenu" class="hidden flex-col px-4 pb-4">
         <a href="index.html" class="mobile-sublink block px-4 py-3 rounded-xl text-sm text-[#4A4A4A] hover:bg-[#D6D2CC] transition-colors">Home 1</a>
         <a href="home2.html" class="mobile-sublink block px-4 py-3 rounded-xl text-sm text-[#4A4A4A] hover:bg-[#D6D2CC] transition-colors">Home 2</a>
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <div class="mt-2 flex gap-2">
       <a href="login.html" class="mobile-cta-btn flex-1 px-6 py-4 rounded-2xl bg-[#2C2C2C] text-white tracking-wider uppercase text-xs shadow-sm text-center hover:bg-[#1A1A1A] transition-colors">Login</a>
-      <a href="signup.html" class="mobile-cta-btn flex-1 px-6 py-4 rounded-2xl bg-[#2C2C2C] text-white tracking-wider uppercase text-xs shadow-sm text-center hover:bg-[#1A1A1A] transition-colors">Signup</a>
+      <a href="signup.html" id="mobileSignupBtn" class="mobile-cta-btn flex-1 px-6 py-4 rounded-2xl bg-transparent border border-black text-black tracking-wider uppercase text-xs shadow-sm text-center hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] transition-colors">Signup</a>
     </div>
   </div>
 
@@ -209,8 +209,12 @@ document.addEventListener("DOMContentLoaded", () => {
     body.dark-mode .icon-btn:hover { background-color: #3A3A3A !important; border-color: #F5F4F2 !important; color: #FFFFFF !important; }
     body.dark-mode .cta-btn { background-color: #F5F4F2 !important; color: #1A1A1A !important; }
     body.dark-mode .cta-btn:hover { background-color: #FFFFFF !important; }
+    body.dark-mode #desktopSignupBtn { background-color: transparent !important; border-color: #F5F4F2 !important; color: #F5F4F2 !important; }
+    body.dark-mode #desktopSignupBtn:hover { background-color: #3A3A3A !important; color: #F5F4F2 !important; border-color: #F5F4F2 !important; }
     body.dark-mode .mobile-cta-btn { background-color: #F5F4F2 !important; color: #1A1A1A !important; }
     body.dark-mode .mobile-cta-btn:hover { background-color: #FFFFFF !important; }
+    body.dark-mode #mobileSignupBtn { background-color: transparent !important; border-color: #F5F4F2 !important; color: #F5F4F2 !important; }
+    body.dark-mode #mobileSignupBtn:hover { background-color: #F5F4F2 !important; color: #1A1A1A !important; border-color: #F5F4F2 !important; }
     
     /* Search Bar */
     body.dark-mode #searchBar { background-color: #1A1A1A !important; border-color: #3A3A3A !important; }
@@ -221,6 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
     body.dark-mode #mobileMenu { background-color: #121212 !important; }
     body.dark-mode .mobile-dropdown-bg { background-color: #1A1A1A !important; }
     body.dark-mode #mobileCollectionsBtn { color: #F5F4F2 !important; }
+    body.dark-mode #mobileCollectionsBtn i { color: #F5F4F2 !important; }
+    body.dark-mode #mobileCollectionsIcon { color: #F5F4F2 !important; }
     body.dark-mode .mobile-sublink { color: #D6D2CC !important; }
     body.dark-mode .mobile-sublink:hover { background-color: #3A3A3A !important; }
     body.dark-mode .mobile-link { background-color: #1A1A1A !important; color: #F5F4F2 !important; border: 1px solid #3A3A3A; }
@@ -295,12 +301,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // Handles mobile submenu parent highlight
       if (link.classList.contains('mobile-sublink') && mobileCollectionsMenu && mobileCollectionsMenu.contains(link)) {
         if (mobileCollectionsBtn) {
-            mobileCollectionsBtn.parentElement.classList.add('bg-[#2C2C2C]', 'text-white');
+            mobileCollectionsBtn.parentElement.classList.add('bg-[#2C2C2C]', 'text-black');
             mobileCollectionsBtn.classList.remove('text-[#1A1A1A]');
-            mobileCollectionsBtn.classList.add('text-white');
+            mobileCollectionsBtn.classList.add('text-black');
         }
         if (mobileCollectionsMenu) mobileCollectionsMenu.classList.remove('hidden');
-        if (mobileCollectionsIcon) mobileCollectionsIcon.className = "fa-solid fa-chevron-up text-sm transition-transform duration-300";
+        if (mobileCollectionsIcon) mobileCollectionsIcon.className = "fa-solid fa-chevron-up text-sm text-black transition-transform duration-300";
       }
     }
   });
